@@ -1,0 +1,33 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ChatModule } from './chat/chat.module';
+import { FormsModule } from '@angular/forms';
+import { StartPageModule } from './start-page/start-page.module';
+import { SighnInAndUpModule } from './sighn-in-and-up/sighn-in-and-up.module';
+import { DatePipe } from '@angular/common';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ChatModule,
+    FormsModule,
+    StartPageModule,
+    SighnInAndUpModule,
+    SocketIoModule.forRoot(config)
+  ],
+  providers: [
+    DatePipe
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

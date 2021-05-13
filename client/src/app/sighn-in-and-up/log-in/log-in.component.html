@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="panel panel-default container-fluid"  >
+    <div class="login">
+      <h1>Log-in</h1>
+    <form  [formGroup]="userForm">
+      <!-- class="form-group p-3 mb-2 bg-primary text-white" -->
+        
+        <div>
+          <label class="control-label">
+            Email:
+              <input type="text"
+               class="form-control"
+                placeholder="Enter email"
+                 formControlName="email"/>
+          </label>
+          <div class="error"  *ngIf="emailTouched()">
+          <div *ngIf="checkIfNotValidEmail()">
+                    Email is incorrect please add the elements "@.".
+              </div>
+            </div>
+        </div>
+    
+        <div>
+            <label class="control-label">
+              Password:
+                <input type="password"
+                 class="form-control"
+                  placeholder="Enter password"
+                   formControlName="Password"/>
+            </label>
+            <div class="error" *ngIf="PasswordTouched()">
+            <div *ngIf="!checkIfPasswordValid()">
+                      password is incorrect min lenght is 4 letters max 10.
+                </div>
+              </div>
+          </div>
+          <!-- <button class="btn btn-light">Log in</button> -->
+            <button class="btn btn-primary btn-block btn-large" [disabled]="!AllowBtn()">Let me in</button>
+      </form>
+      </div>
+  </div>
+</div>
+
+
+
