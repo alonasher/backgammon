@@ -1,6 +1,7 @@
 require('dotenv').config({path: '../.env'})
 const express = require('express')
 const app = express();
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const socket = require('socket.io')
 const userController = require('./controllers/user');
@@ -16,8 +17,20 @@ const server= app.listen(port, () => {
 })
 
 // Chatroom
-const io=socket(server);
+const io = socket(server, {
+  cors: {
+    origin: '*',
+  }})
 
-io.on('connection',()=>{
-  console.log("socket is connected");
-})
+io.on('connection', (socket => {
+  console.log("socket listening");
+  socket.on('emitNumber', (data) => {
+      console.log(data);
+      io.emit('recievedNumber', data)
+  })
+
+  socket.on('emitRandom', () => {
+      console.log("in random");
+      io.emit('randomNumber', Math.random())
+  })
+}))
