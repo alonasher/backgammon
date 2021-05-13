@@ -1,7 +1,5 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../Model/UserModel';
-import { Guid } from 'guid-typescript';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IRegisterService } from './iregister.service';
 import { Router } from '@angular/router';
