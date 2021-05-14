@@ -23,7 +23,8 @@ const io = socket(server, {
   }})
 
 io.on('connection', (socket => {
-  console.log("socket listening");
+  console.log(`new connection ${socket.id}`);
+
   socket.on('emitNumber', (data) => {
       console.log(data);
       io.emit('recievedNumber', data)
@@ -33,4 +34,17 @@ io.on('connection', (socket => {
       console.log("in random");
       io.emit('randomNumber', Math.random())
   })
+
+  socket.on('chat',(data)=>{
+      io.sockets.emit('chat',data);
+  })
+
+  socket.on('typing',(data)=>{
+    io.sockets.emit('typing',data)
+  })
+
+  socket.on('connect',(data)=>{
+    io.sockets.emit('connectedUsers',data)
+  })
+  
 }))
