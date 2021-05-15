@@ -103,16 +103,24 @@ export class GameComponent implements OnInit {
     else this.AllHouses[27].ChipsInHouse.push(MurderdChip)
     TheHouse.ChipsInHouse.push(KillerChip)
   }
-  MoveLogic(StartHouse:House,firstDice:number,secondDice:number){
+  CheckIfCouldMove(StartHouse:House,Dice:number):boolean{
     const c:Chips=this.getLastChip(StartHouse)
     if(c.Color==="White"){
-      const firstRoll=this.CheckIfChipCouldLandOnHouse(c,firstDice+StartHouse.Id)
-      const secondRoll=this.CheckIfChipCouldLandOnHouse(c,secondDice+StartHouse.Id)
+      return this.CheckIfChipCouldLandOnHouse(c,Dice+StartHouse.Id)
     }
     else{
-      const firstRoll=this.CheckIfChipCouldLandOnHouse(c,StartHouse.Id-firstDice)
-      const secondRoll=this.CheckIfChipCouldLandOnHouse(c,StartHouse.Id-secondDice)
+      return this.CheckIfChipCouldLandOnHouse(c,StartHouse.Id-Dice)
     }
+  }
+  MoveUser(StartHouse:House,EndHouse:House,chip:Chips){
+    StartHouse.ChipsInHouse.pop()
+    if(EndHouse.ChipsInHouse.length!==1){
+      EndHouse.ChipsInHouse.push(chip)
+    }
+    else{
+      this.ChipKillsOtherChip(chip,EndHouse.ChipsInHouse[0],EndHouse)
+    }
+    this.CheckIfYouWin(chip.Color)
   }
   getLastChip(StartHouse:House):Chips{
     const lastChipInArrey=StartHouse.ChipsInHouse.length-1
