@@ -17,7 +17,7 @@
   /* Control the right side */
   .right {
     right: 0;
-    background-color: lightgreen;
+    background-color: red;
   }
   
   /* If you want the content centered horizontally and vertically */

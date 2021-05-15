@@ -4,12 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ChatComponent } from '../chat/chat.component';
 import { ChatGameComponent } from '../chat-game/chat-game.component';
 import { ChatLoggedComponent } from '../chat-logged/chat-logged.component';
+import { Chatv2Component } from 'src/app/chatv2/chatv2.component';
 
 
 const routes: Routes = [
   { path: 'ChatAndPlay/chatGame', component: ChatGameComponent},
   { path: 'ChatAndPlay/ChatList', component: ChatLoggedComponent},
-  { path: 'ChatAndPlay', component: ChatLoggedComponent},
+  { path: 'ChatAndPlay', component: ChatGameComponent},
 
 ];
 

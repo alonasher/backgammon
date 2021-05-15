@@ -9,14 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { StartPageModule } from './start-page/start-page.module';
 import { SighnInAndUpModule } from './sighn-in-and-up/sighn-in-and-up.module';
 import { DatePipe } from '@angular/common';
-import { Chatv2Component } from './chatv2/chatv2.component';
+// import { Chatv2Component } from './chatv2/chatv2.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
     AppComponent,
-    Chatv2Component,
+    // Chatv2Component,
   ],
   imports: [
     BrowserModule,
