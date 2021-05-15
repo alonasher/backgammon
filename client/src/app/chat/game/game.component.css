@@ -3,11 +3,12 @@
     height: 100%;
 }
   .box{
-    width: 60%;
-    height:60%;       
+    width: 80%;
+    height:80%;       
     background: url("../../../assets/board.jpg") no-repeat;
     background-size: cover;
   object-fit: contain;
+  margin: 7%;
   /* object-fit: cover; */
 } 
 
