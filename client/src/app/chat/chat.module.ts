@@ -8,6 +8,8 @@ import { ChatLoggedComponent } from './chat-logged/chat-logged.component';
 import { GameComponent } from './game/game.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 import { Chatv2Component } from '../chatv2/chatv2.component';
+import { RoolDiceComponent } from './rool-dice/rool-dice.component';
+// import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -18,12 +20,14 @@ import { Chatv2Component } from '../chatv2/chatv2.component';
     ChatLoggedComponent,
     GameComponent,
     LoggedInComponent,
-    Chatv2Component
+    Chatv2Component,
+    RoolDiceComponent
   ],
   imports: [
     CommonModule,
     RoutinChatModule,
-    FormsModule
+    FormsModule,
+    // DragDropModule
   ]
 })
 export class ChatModule { }
