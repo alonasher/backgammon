@@ -1,17 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 
+
 declare function rollDice():any;
+declare function returnNumbers():any;
 @Component({
   selector: 'app-rool-dice',
   templateUrl: './rool-dice.component.html',
   styleUrls: ['./rool-dice.component.css']
 })
 export class RoolDiceComponent implements OnInit {
-  constructor() { }
+  cube:any
+  constructor() { 
 
-  ngOnInit(): void {
+    //document.getElementById("roll-button").addEventListener("click", rollDice());
+  // document.getElementById("roll-button").addEventListener("click",returnNumbers);
+  
+    // GetCube(this.cube)
+    // this.cube
   }
-  myFunction() {
-    location.replace("https://www.w3schools.com")
+  clickbtn(){
+    rollDice()
+    returnNumbers()
+  }
+  ngOnInit(): void {
   }
 }
