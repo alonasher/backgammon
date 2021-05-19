@@ -8,6 +8,7 @@ import { ChatLoggedComponent } from './chat-logged/chat-logged.component';
 import { GameComponent } from './game/game.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 import { Chatv2Component } from '../chatv2/chatv2.component';
+import { OnlineUsersComponent } from '../online-users/online-users.component';
 
 
 
@@ -18,7 +19,8 @@ import { Chatv2Component } from '../chatv2/chatv2.component';
     ChatLoggedComponent,
     GameComponent,
     LoggedInComponent,
-    Chatv2Component
+    Chatv2Component,
+    OnlineUsersComponent
   ],
   imports: [
     CommonModule,

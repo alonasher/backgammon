@@ -15,17 +15,17 @@ export class Chatv2Component implements OnInit {
   message!: string;
   output: any[] = [];
   feedback!: string;
-  constructor(private socket: Socket, private service:WebSocketService) {
+  connectedUsers:any[]=[];
 
-  }
+  constructor(private socket: Socket, private service:WebSocketService) {}
   ngOnInit(): void {
-    
-    this.service.listen('recievedNumber').subscribe((data)=>{this.data=data});
+    this.service.listen('connected').subscribe((data)=>{this.connectedUsers = data});
+    //this.service.listen('recievedNumber').subscribe((data)=>{this.data=data});
 
-    this.socket.on('randomNumber', (data: string) => {
-      console.log(data);
-      this.data = data;
-    });
+    // this.socket.on('randomNumber', (data: string) => {      
+    //   console.log(data);
+    //   this.data = data;
+    // });
 
     this.service.listen('typing').subscribe((data)=>{this.updateFeedback(data)});
     this.service.listen('chat').subscribe((data)=>{this.updateMessage(data)});
@@ -41,7 +41,15 @@ export class Chatv2Component implements OnInit {
       message: this.message,
       handle: this.userName
     });
-    this.message = "";  
+    this.message = "";
+  }
+
+  privateMessage(){
+    this.service.emit('private message', {
+      message: this.message,
+      handle: this.userName
+    });
+    this.message = "";
   }
 
   messageTyping(): void {
