@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {  Chips } from '../../Model/Chips';
 import { House} from '../../Model/House';
+// import rollADie from 'roll-a-die';
 
 const AmountOfHouse=28;//24 houses+ 0,25 win house+2 out houses one for black one for white
 @Component({
@@ -13,7 +14,12 @@ export class GameComponent implements OnInit {
   
 
   constructor() { }
-
+  // rollDices(){
+  //   rollADie({ element, numberOfDice: 2, callback });
+  //   rollADie({ element, numberOfDice: 2, callback, soundVolume: 1 });
+  //   rollADie({ element, numberOfDice: 2, callback, delay: 1000 });
+  //   rollADie({ element, numberOfDice: 2, callback, values: [3, 4] });
+  // }
   ngOnInit(): void {
   }
   CreateHouses(){

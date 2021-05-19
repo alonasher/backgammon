@@ -31,7 +31,9 @@
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "C:/Users/sagib/Documents/wrokProject2/ProjectBackgammon/backgammon/client/src/assets/Js/Dice.js"
+            ]
           },
           "configurations": {
             "production": {

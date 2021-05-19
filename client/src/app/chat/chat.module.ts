@@ -8,7 +8,12 @@ import { ChatLoggedComponent } from './chat-logged/chat-logged.component';
 import { GameComponent } from './game/game.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 import { Chatv2Component } from '../chatv2/chatv2.component';
+<<<<<<< HEAD
 import { OnlineUsersComponent } from '../online-users/online-users.component';
+=======
+import { RoolDiceComponent } from './rool-dice/rool-dice.component';
+// import {DragDropModule} from '@angular/cdk/drag-drop';
+>>>>>>> 40d50396f5106815872b63b4419e93c945faeac8
 
 
 
@@ -20,12 +25,18 @@ import { OnlineUsersComponent } from '../online-users/online-users.component';
     GameComponent,
     LoggedInComponent,
     Chatv2Component,
+<<<<<<< HEAD
     OnlineUsersComponent
+=======
+    RoolDiceComponent
+>>>>>>> 40d50396f5106815872b63b4419e93c945faeac8
   ],
   imports: [
     CommonModule,
     RoutinChatModule,
-    FormsModule
+    FormsModule,
+    
+    // DragDropModule
   ]
 })
 export class ChatModule { }
