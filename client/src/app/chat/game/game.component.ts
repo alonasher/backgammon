@@ -92,7 +92,8 @@ export class GameComponent implements OnInit {
     }
   }
   GetBottomAllHouse(){
-    for (let index = (this.AllHouses.length)/2-1; index < this.AllHouses.length-2; index++) {
+    // for (let index = (this.AllHouses.length)/2-1; index < this.AllHouses.length-2; index++) {
+      for (let index = this.AllHouses.length-3; index > (this.AllHouses.length)/2-2; index--) {
       this.halfeBottomHouse.push(this.AllHouses[index])
     }
   }
