@@ -10,6 +10,14 @@ function rollDice() {
     });
     
   }
+  function RollOtherUsesrDice() {
+    const dice = [...document.querySelectorAll(".die-list")];
+    for (let index = 0; index < dice.length; index++) {
+      // const element = array[index];
+      toggleClasses(dice[index])
+      dice[index].dataset.roll=numbers[index]
+    }
+  }
   function returnNumbers() {
       console.log(numbers);
       return numbers
@@ -24,7 +32,11 @@ function rollDice() {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  console.log( document.getElementById("roll-button"))
+  function GetNumbersFromClient(numbers) {
+    this.numbers=numbers;
+    RollOtherUsesrDice()
+  }
+  // console.log( document.getElementById("roll-button"))
   // document.getElementById("roll-button").addEventListener("click", rollDice());
   // document.getElementById("roll-button").addEventListener("click",returnNumbers);
   

@@ -5,18 +5,20 @@ import { House} from '../../Model/House';
 // import rollADie from 'roll-a-die';
 
 const AmountOfHouse=28;//24 houses+ 0,25 win house+2 out houses one for black one for white
+
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  selector: 'app-game2-fix-problems',
+  templateUrl: './game2-fix-problems.component.html',
+  styleUrls: ['./game2-fix-problems.component.css']
 })
-export class GameComponent implements OnInit {
+export class Game2FixProblemsComponent implements OnInit {
   yourColor:string="White";
   public isTrue:boolean=false
   AllHouses:House[]=[];
   public halfeTopHouse:House[]=[]
   public halfeBottomHouse:House[]=[]
-  dice:Dice[]=[];
+  // dice:number[]=[];
+  dice:Dice[]=[]
   public startHouse:House={
     Id:0,
     ChipsInHouse:[],
@@ -117,42 +119,101 @@ export class GameComponent implements OnInit {
 
   //logic moves
   MoveSolder(house:House){
-    console.log("starts moving solder");
-    
-      if(!house.CouldLandOn){
-        this.turnAllHomesToBeCantLand();
-        this.startHouse=house
-        console.log("MoveSolder");
-        if(house.ChipsInHouse.length===0)return
-        console.log("more then 0 solders");
-        const chip=house.ChipsInHouse[house.ChipsInHouse.length-1]
-        console.log("last chip");
+    if(this.couldYouDoYourTurn(house)){
+      console.log("chip color is the same as your color");
+      
+      if(!this.checkIfAllChipsAreInHouse()){
+        console.log("regulor move");
         
-        if(this.CheckIfNoDeadUser(chip)){
-          console.log("no dead player");
-          this.checkIfHouseIsLandable(chip,house,0)
-          this.checkIfHouseIsLandable(chip,house,1)
-        }
-        else{
-          
-          if(house===this.AllHouses[26]||house===this.AllHouses[27]){
-            this.MoveFromDeadHouse(house)
+        this.regularMoveInGame(house)
+      }
+      else{
+        console.log("move in the house");
+        
+        this.movesInHouse(house)
+        for (let index = 0; index < this.dice.length; index++) {
+          if(Math.abs(this.startHouse.Id-house.Id)===this.dice[index].DiceDots){
+            this.dice[index].HaveBeanUsed=true
+            return
           }
         }
       }
-      else{
-        this.MoveUser(this.startHouse,house,this.getLastChip(this.startHouse))
-        const diceToNotUse=Math.abs(this.startHouse.Id-house.Id)
-        for (let index = 0; index < this.dice.length; index++) {
-          if(this.dice[index].DiceDots==diceToNotUse){
-            this.dice[index].HaveBeanUsed=true
-          this.dice.splice(index,1)
-          break
-        }
-        }
-        this.turnAllHomesToBeCantLand();
+    }
+    else{
+      console.log("chip color are not the same as your color");
+      this.turnAllHomesToBeCantLand();
+    }
+  }
+  regularMoveInGame(house:House){
+    console.log("regular move");
+    
+    if(!house.CouldLandOn){
+      console.log("house is not green");
+      this.turnAllHomesToBeCantLand();
+      this.startHouse=house
+      console.log("added start house");
+      if(house.ChipsInHouse.length===0)return
+      console.log("there is chips in house");
+      
+      const chip=house.ChipsInHouse[house.ChipsInHouse.length-1]
+      if(this.CheckIfNoDeadUser(chip)){
+        this.checkIfHouseIsLandable(chip,house,0)
+        this.checkIfHouseIsLandable(chip,house,1)
+        console.log("no dead player");
+        
       }
-    // }
+      else{
+        if(house===this.AllHouses[26]||house===this.AllHouses[27]){
+          this.MoveFromDeadHouse(house)
+        }
+      }
+    }
+    else{
+      console.log("could start moving");
+      
+      this.MoveUser(this.startHouse,house,this.getLastChip(this.startHouse))
+      this.startHouse.Id=0
+    }
+  }
+  movesInHouse(house:House){
+    if(!house.CouldLandOn){
+      this.turnAllHomesToBeCantLand();
+      this.startHouse=house
+      console.log("MoveSolder");
+      if(house.ChipsInHouse.length===0)return
+      const chip=house.ChipsInHouse[house.ChipsInHouse.length-1]
+      // if(this.CheckIfNoDeadUser(chip)){
+        this.checkIfHouseIsLandableForWin(chip,house,0)
+        this.checkIfHouseIsLandableForWin(chip,house,1)
+    }
+    else{
+      this.MoveUser(this.startHouse,house,this.getLastChip(this.startHouse))
+      this.CheckIfYouWin(this.yourColor)
+    }
+  }
+  checkIfHouseIsLandableForWin(chip:Chips,house:House,Dice:number){
+    if(!this.dice[Dice].HaveBeanUsed)return
+    let houseToLand=this.CalculateAmountOfMoves(chip,house,Dice)
+    if(houseToLand<0||houseToLand>25){
+      if(houseToLand<0){
+        for (let index = 6; index >this.dice[Dice].DiceDots; index++) {
+          if(this.AllHouses[index].ChipsInHouse.length!==0)return
+        }
+        houseToLand=0
+      }
+      else{
+        for (let index = 19; index <houseToLand-this.dice[Dice].DiceDots; index++) {
+          if(this.AllHouses[index].ChipsInHouse.length!==0)return
+        }
+        houseToLand=25
+      }
+    }
+    console.log(houseToLand);
+    
+    let couldLand=this.CheckIfChipCouldLandOnHouse(chip,houseToLand)
+    if(couldLand){
+      this.AllHouses[houseToLand].CouldLandOn=true
+    }
   }
   MoveFromDeadHouse(DeadHouse:House){
     // if(!house.CouldLandOn){
@@ -172,15 +233,10 @@ export class GameComponent implements OnInit {
     this.AllHouses.forEach(h=>{
       h.CouldLandOn=false
     })
+    this.startHouse.Id=0
   }
   checkIfHouseIsLandable(chip:Chips,house:House,Dice:number){
-    console.log(Dice);
-    console.log(this.dice[Dice]);
-    if(this.dice[Dice]===undefined)return
-    if(this.dice[Dice].HaveBeanUsed)return
-    let houseToLand=this.CalculateAmountOfMoves(chip,house,this.dice[Dice])
-    console.log(houseToLand);
-    
+    let houseToLand=this.CalculateAmountOfMoves(chip,house,Dice)
     if(houseToLand===0||houseToLand>24)return
     console.log(houseToLand);
     
@@ -189,22 +245,20 @@ export class GameComponent implements OnInit {
       this.AllHouses[houseToLand].CouldLandOn=true
     }
   }
-  CalculateAmountOfMoves(chip:Chips,house:House,dice:Dice){
-    console.log("calculateMoves");
-    console.log(chip);
+  CalculateAmountOfMoves(chip:Chips,house:House,Dice:number){
+    console.log(house.Id);
     
+    let id=Number(house.Id)
     if(chip.Color==="White"){
-    //   console.log("in white");
-      console.log(dice.DiceDots);
-    //   console.log(house.Id);
-    //   console.log(this.dice[Dice]);
-    console.log("end moves: ");
-    
-      console.log(house.Id+dice.DiceDots);
-      return house.Id+Number(dice.DiceDots)
-    }
-       console.log("in black");
-       return house.Id-Number(dice.DiceDots)
+      // console.log("in white");
+      // console.log(this.dice[Dice]);
+      // console.log(house.Id);
+      // console.log(this.dice[Dice]);
+      // console.log(id+this.dice[Dice]);
+      return house.Id+Number(this.dice[Dice].DiceDots)
+       }
+      //  console.log("in black");
+       return house.Id-this.dice[Dice].DiceDots
   }
   
   ChipKillsOtherChip(KillerChip:Chips,MurderdChip:Chips,TheHouse:House){
@@ -234,7 +288,6 @@ export class GameComponent implements OnInit {
       }
       else EndHouse.ChipsInHouse.push(chip)
     }
-    this.CheckIfYouWin(chip.Color)
   }
   checkIfKill(EndHouse:House,chip:Chips){
     if(chip.Color===EndHouse.ChipsInHouse[0].Color)
@@ -244,9 +297,7 @@ export class GameComponent implements OnInit {
   /////////////
 
 
-  disableButton():boolean{
-    return this.dice.length===0
-  }
+  
   //get infromation
   GetNumbersFromDice($event:number[]){
     for (let index = 0; index < $event.length; index++) {
@@ -255,7 +306,7 @@ export class GameComponent implements OnInit {
           DiceDots:$event[index],
           HaveBeanUsed:false
       })
-      if($event[0]===$event[1]&&this.dice.length<4)this.GetNumbersFromDice($event)
+      
     }
   }
   CheckIfYouWin(Color:string):boolean{
@@ -285,7 +336,6 @@ export class GameComponent implements OnInit {
     let numOfChipsInHouse:number=0
     if(this.yourColor==="White"){
       for (let index = 19; index < 26; index++) {
-        // const element = array[index];
         numOfChipsInHouse=numOfChipsInHouse+this.AllHouses[index].ChipsInHouse.length
         if(numOfChipsInHouse===15)return true
       }
@@ -298,7 +348,17 @@ export class GameComponent implements OnInit {
     }
     return false
   }
-
-  
+  couldYouDoYourTurn(house:House):boolean{
+    console.log("question asked");
+    console.log(this.startHouse);
+    
+    if(this.startHouse.Id===0){
+      return house.ChipsInHouse[0].Color===this.yourColor
+    }
+    if(this.startHouse.ChipsInHouse[0].Color===this.yourColor&&house.CouldLandOn){
+      return true
+    }
+    return false
+  }
   
 }

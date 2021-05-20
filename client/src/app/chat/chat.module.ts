@@ -9,6 +9,8 @@ import { GameComponent } from './game/game.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 import { Chatv2Component } from '../chatv2/chatv2.component';
 import { RoolDiceComponent } from './rool-dice/rool-dice.component';
+import { HouseBlackComponent } from './game/house-black/house-black.component';
+import { Game2FixProblemsComponent } from './game2-fix-problems/game2-fix-problems.component';
 // import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
@@ -21,7 +23,9 @@ import { RoolDiceComponent } from './rool-dice/rool-dice.component';
     GameComponent,
     LoggedInComponent,
     Chatv2Component,
-    RoolDiceComponent
+    RoolDiceComponent,
+    HouseBlackComponent,
+    Game2FixProblemsComponent,
   ],
   imports: [
     CommonModule,

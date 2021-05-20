@@ -1,4 +1,3 @@
-
 <div class="Board">
     <div class="Top">
         <div *ngFor="let house of halfeTopHouse; let i = index">
@@ -17,9 +16,12 @@
 
 <div class="center">
     <div style="width: 58%; float:left" class="left" >
-        <app-rool-dice [DisableButton]="!disableButton()" (GetDicenumbers)="GetNumbersFromDice($event)"></app-rool-dice>
+        <app-rool-dice (GetDicenumbers)="GetNumbersFromDice($event)"></app-rool-dice>
     </div>
     <div style="width: 42%; float:right" class="right">
+        <!-- זמני -->
+        <!-- {{dice[0]}}
+        {{dice[1]}} -->
         <div (click)="MoveSolder(AllHouses[26])" style="width: 50%; float:left" class="left">
             <!-- (click)="MoveFromDeadHouse(AllHouses[26])" -->
             White Kill [26]
@@ -42,5 +44,3 @@
     </span>
 </div>
 </div>
-
-    

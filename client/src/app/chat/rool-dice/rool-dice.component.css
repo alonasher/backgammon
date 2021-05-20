@@ -9,6 +9,7 @@
   body {
     /* background: linear-gradient(#545454, #454545, #676767); */
     /* background: linear-gradient(whit, #454545, #676767); */
+    background-color: whitesmoke;
     display: grid;
     grid-template-columns: 1fr;
     height: 250px;
