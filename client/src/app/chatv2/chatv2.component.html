@@ -1,11 +1,4 @@
-<!-- <div>
-    <div style="display: flex;">
-      <button (click)="emitNumber()">emit data</button>
-      <button (click)="emitRandom()">emit random</button>
-    </div>
-    <input [(ngModel)]="someNumber"/>
-    <h1>{{data}}</h1>
-  </div> -->
+
   <div id="chat-applicaton">
     <h2>Chat Application - Angular client</h2>
     <div id="chat-window">
@@ -14,8 +7,11 @@
       </div>
       <div id="feedback"><p>{{feedback}}</p></div>
     </div>
+
     <input id="handle" type="text" [(ngModel)]="userName" placeholder="Handle" />
     <input id="message" type="text" [(ngModel)]="message" placeholder="Message" autocomplete="off"
       (keypress)="messageTyping()" />
     <button type="button" id="send" style="cursor: pointer;" (click)="sendMessage()">Send</button>
+    <button type="button" id="send" style="cursor: pointer;" (click)="privateMessage()">Private</button>
+
 </div>

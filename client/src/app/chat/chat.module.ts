@@ -8,6 +8,7 @@ import { ChatLoggedComponent } from './chat-logged/chat-logged.component';
 import { GameComponent } from './game/game.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 import { Chatv2Component } from '../chatv2/chatv2.component';
+import { OnlineUsersComponent } from '../online-users/online-users.component';
 import { RoolDiceComponent } from './rool-dice/rool-dice.component';
 import { HouseBlackComponent } from './game/house-black/house-black.component';
 import { Game2FixProblemsComponent } from './game2-fix-problems/game2-fix-problems.component';
@@ -26,6 +27,8 @@ import { Game2FixProblemsComponent } from './game2-fix-problems/game2-fix-proble
     RoolDiceComponent,
     HouseBlackComponent,
     Game2FixProblemsComponent,
+    OnlineUsersComponent,
+    RoolDiceComponent
   ],
   imports: [
     CommonModule,
