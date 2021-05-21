@@ -337,7 +337,7 @@ export class GameComponent implements OnInit {
       if(this.AllHouses[WhitKillHouse].ChipsInHouse.length!==0){
         if(!this.CheckIfChipCouldLandOnHouse(chip,this.dice[0].DiceDots)){
           this.dice=[]
-          return true
+          return this.AllowButton()
         }
       }
     }
@@ -346,17 +346,26 @@ export class GameComponent implements OnInit {
       if(this.AllHouses[BlackKillHouse].ChipsInHouse.length!==0){
         if(!this.CheckIfChipCouldLandOnHouse(chip,25-this.dice[0].DiceDots)){
           this.dice=[]
-          return true
+          return this.AllowButton()
         }
       }
     }
+    for (let index = 1; index < this.AllHouses.length-2; index++) {
+      if(this.AllHouses[index].ChipsInHouse.length===0)continue
+      if(this.AllHouses[index].ChipsInHouse[0].Color!==this.TurnsColor)continue
+      const foundMoves=this.CheckIfCouldMove(this.AllHouses[index],this.dice[0].DiceDots)
+      if(foundMoves)return false
+      console.log(`foundMoves 1 dice- ${foundMoves}`);
+    }
+    this.dice=[]
+    return this.AllowButton()
   }
   if(this.dice.length===2){
     if(this.TurnsColor==="White"){
       if(this.AllHouses[WhitKillHouse].ChipsInHouse.length!==0){
         if(!this.CheckIfChipCouldLandOnHouse(chip,this.dice[0].DiceDots)&&!this.CheckIfChipCouldLandOnHouse(chip,this.dice[1].DiceDots)){
           this.dice=[]
-          return true
+          return this.AllowButton()
         }
       }
     }
@@ -365,32 +374,105 @@ export class GameComponent implements OnInit {
       if(this.AllHouses[BlackKillHouse].ChipsInHouse.length!==0){
         if(!this.CheckIfChipCouldLandOnHouse(chip,25-this.dice[0].DiceDots)&&!this.CheckIfChipCouldLandOnHouse(chip,25-this.dice[1].DiceDots)){
           this.dice=[]
-          return true
+          return this.AllowButton()
         }
       }
-      
     }
+    for (let index = 1; index < this.AllHouses.length-2; index++) {
+      if(this.AllHouses[index].ChipsInHouse.length===0)continue
+      if(this.AllHouses[index].ChipsInHouse[0].Color!==this.TurnsColor)continue
+      const foundMoves=this.CheckIfCouldMove(this.AllHouses[index],this.dice[0].DiceDots)||this.CheckIfCouldMove(this.AllHouses[index],this.dice[1].DiceDots)
+      console.log(`foundMoves 2 dice- ${foundMoves}`);
+      
+      if(foundMoves)return false
+    }
+    this.dice=[]
+    return this.AllowButton()
   }
-    // for (let index = 1; index < this.AllHouses.length-2; index++) {
-    //   if(this.AllHouses[index].ChipsInHouse[0].Color===this.TurnsColor){
-    //     const foundMoves=this.CheckIfCouldMove(this.AllHouses[index],this.dice[0].DiceDots)||this.CheckIfCouldMove(this.AllHouses[index],this.dice[1].DiceDots)
-    //     if(foundMoves)return true
-    //     if(index===this.AllHouses.length-3){
-    //       this.dice=[]
-    //       return true
-    //     }
-    //   }
-    // }
     return false
   }
   CheckIfCouldMove(StartHouse:House,Dice:number):boolean{
     const c:Chips=this.getLastChip(StartHouse)
+    console.log(`c.Color ${c.Color}`);
+    
     if(c.Color==="White"){
-      return this.CheckIfChipCouldLandOnHouse(c,Dice+StartHouse.Id)
+      return this.CheckIfChipCouldLandOnHouseForCheckingMoves(c,Number(StartHouse.Id)+Number(Dice),StartHouse)
+      // return true
     }
     else{
-      return this.CheckIfChipCouldLandOnHouse(c,StartHouse.Id-Dice)
+      return this.CheckIfChipCouldLandOnHouseForCheckingMoves(c,StartHouse.Id-Dice,StartHouse)
+      // return true
     }
+  }
+  CheckIfChipCouldLandOnHouseForCheckingMoves(chip:Chips,numberOfHouse:number,begningHouse:House):boolean{
+
+    if(numberOfHouse<25&&numberOfHouse>0){
+      if(this.AllHouses[numberOfHouse].ChipsInHouse.length===0)return true
+      if(this.AllHouses[numberOfHouse].ChipsInHouse.length===1)return true
+      else
+      return this.AllHouses[numberOfHouse].ChipsInHouse[0].Color===chip.Color
+    }
+    else{
+      //כרגע
+      return this.CheckIfUserIsInHouseAndCouldStillMove(numberOfHouse,chip,begningHouse)
+      // return true
+    }
+    // return true
+    
+  }
+  CheckIfUserIsInHouseAndCouldStillMove(numOfHouse:number,chip:Chips,begningHouse:House):boolean{
+    console.log(`begin id is ${begningHouse.Id}`);
+    
+    // if(begningHouse.Id===0)return false
+    let count:number=0
+    if(chip.Color==="White"){
+      console.log(`color is white`);
+      for (let index = 25; index > 18; index--) {
+        console.log(`index is ${index}`);
+        count=count+this.AllHouses[index].ChipsInHouse.length
+        if(count===15){
+          console.log(`all chips are in house`);
+          
+          if(numOfHouse===25)
+          {
+            console.log(`take out chip`);
+            return true
+          }
+          else{
+            console.log(`check if there is chips in bigger houses`);
+            
+            for (let index = 18; index < begningHouse.Id; index++) {
+              if(this.AllHouses[index].ChipsInHouse.length!==0){
+                console.log(`if there is return that there is`);
+                return false
+              }
+            }
+            console.log(`take out chips`);
+            return true
+          }
+        }
+      }
+    }
+    else{
+      console.log(`color is black`);
+      for (let index = 0; index < 7; index++) {
+        console.log(`index is ${index}`);
+        count=count+this.AllHouses[index].ChipsInHouse.length
+        console.log(`count is ${count}`);
+        if(count===15){
+          console.log("amount is 15");
+          if(numOfHouse===0)return true
+          else{
+            for (let index = 6; index > begningHouse.Id; index--) {
+              console.log(`index of red house is ${index}`);
+              if(this.AllHouses[index].ChipsInHouse.length!==0)return false
+            }
+            return true
+          }
+        }
+      }
+    }
+    return false
   }
   CheckIfChipCouldLandOnHouse(chip:Chips,numberOfHouse:number):boolean{
     if(this.AllHouses[numberOfHouse].ChipsInHouse.length===0)return true
