@@ -17,16 +17,15 @@
 
 <div class="center">
     <div style="width: 58%; float:left" class="left" >
-        <app-rool-dice [DisableButton]="!disableButton()" (GetDicenumbers)="GetNumbersFromDice($event)"></app-rool-dice>
+        <app-rool-dice [DisableButton]="!AllowButton()" (GetDicenumbers)="GetNumbersFromDice($event)"></app-rool-dice>
     </div>
     <div style="width: 42%; float:right" class="right">
+        <div>turn of: {{TurnsColor}} </div>
         <div (click)="MoveSolder(AllHouses[26])" style="width: 50%; float:left" class="left">
-            <!-- (click)="MoveFromDeadHouse(AllHouses[26])" -->
             White Kill [26]
             <app-house-black [isBlack]="true"  [home]="AllHouses[26]"></app-house-black>
         </div>
         <div (click)="MoveSolder(AllHouses[27])"  style="width: 50%; float:right" class="right">
-            <!-- (click)="MoveFromDeadHouse(AllHouses[27])" -->
             black Kill [27]
             <app-house-black [isBlack]="false"  [home]="AllHouses[27]"></app-house-black>
         </div>
