@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { WebSocketService } from 'src/app/chatv2/web-socket.service';
 
 @Component({
   selector: 'app-chat-logged',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatLoggedComponent implements OnInit {
 
-  constructor() { }
+  selectedUser:any;
+  constructor(private service:WebSocketService) { }
 
   ngOnInit(): void {
   }
 
+  getPrivateRoom(event:any){
+    console.log(event);
+    this.selectedUser = event;
+  }
 }

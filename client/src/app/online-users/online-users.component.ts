@@ -10,11 +10,19 @@ import { WebSocketService } from '../chatv2/web-socket.service';
 export class OnlineUsersComponent implements OnInit {
 
   connectedUsers:any[]=[];
-
+  //@Output() getPrivateRoom:EventEmitter = new EventEmitter();
+  
   constructor(private socket: Socket, private service:WebSocketService) {}
 
   ngOnInit(): void {
     this.service.listen('connected').subscribe((data)=>{this.connectedUsers = data});
   }
+
+  onUserClick(user:any){
+    console.log(user);
+    //this.service.emit('private message',user);
+    //this.getPrivateRoom.emit(user);
+  }
+  
 
 }

@@ -18,6 +18,16 @@
               </div>
             </div>
         </div>
+
+        <div>
+          <label class="control-label">
+            Name
+              <input type="text"
+               class="form-control"
+                placeholder="Player"
+                 formControlName="name"/>
+          </label>
+        </div>
     
         <div>
             <label class="control-label">
@@ -47,7 +57,7 @@
                     not the same password.
                 </div>
             </div>
-            </div>
+          </div>
             <button (click)="Register()" class="btn btn-primary btn-block btn-large" [disabled]="!AllowBtn()">Register</button>
       </form>
   </div>

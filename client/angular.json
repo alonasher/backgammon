@@ -32,7 +32,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "C:/Users/sagib/Documents/wrokProject2/ProjectBackgammon/backgammon/client/src/assets/Js/Dice.js"
+              "src/assets/Js/Dice.js"
             ]
           },
           "configurations": {

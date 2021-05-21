@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { WebSocketService } from './web-socket.service';
 
@@ -16,17 +16,11 @@ export class Chatv2Component implements OnInit {
   output: any[] = [];
   feedback!: string;
   connectedUsers:any[]=[];
+  @Input() to:any;
 
   constructor(private socket: Socket, private service:WebSocketService) {}
   ngOnInit(): void {
     this.service.listen('connected').subscribe((data)=>{this.connectedUsers = data});
-    //this.service.listen('recievedNumber').subscribe((data)=>{this.data=data});
-
-    // this.socket.on('randomNumber', (data: string) => {      
-    //   console.log(data);
-    //   this.data = data;
-    // });
-
     this.service.listen('typing').subscribe((data)=>{this.updateFeedback(data)});
     this.service.listen('chat').subscribe((data)=>{this.updateMessage(data)});
   }
@@ -45,10 +39,13 @@ export class Chatv2Component implements OnInit {
   }
 
   privateMessage(){
-    this.service.emit('private message', {
-      message: this.message,
-      handle: this.userName
-    });
+    if(this.to){
+      this.service.emit('private message', {
+        to:this.to,
+        message: this.message,
+        handle: this.userName
+      });
+    }
     this.message = "";
   }
 
@@ -59,11 +56,13 @@ export class Chatv2Component implements OnInit {
   updateFeedback(data: any){
     this.feedback = `${data} is typing a message`;
   }
-  emitNumber(){
-    this.socket.emit("emitNumber", this.someNumber)
-  }
+  
+  // }
+  // emitNumber(){
+  //   this.socket.emit("emitNumber", this.someNumber)
+  // }
 
-  emitRandom(){
-    this.socket.emit("emitRandom")
-  }
+  // emitRandom(){
+  //   this.socket.emit("emitRandom")
+  // }
 }

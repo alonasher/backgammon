@@ -3,6 +3,7 @@ import { UserModel } from '../../Model/UserModel';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IRegisterService } from './iregister.service';
 import { Router } from '@angular/router';
+import { ServerServiceService } from 'src/app/services/server-service.service';
 
 
 @Component({
@@ -13,9 +14,10 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   userForm: FormGroup;
-  constructor(private fb:FormBuilder,private IService:IRegisterService,private router: Router) {
+  constructor(private fb:FormBuilder,private service:ServerServiceService,private router: Router) {
     this.userForm = this.fb.group({
       email:["", [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      name: ["Player"],
       Password:["", [Validators.required,Validators.minLength(4),Validators.maxLength(10)]],
       ReeEnterPassword:["", [Validators.required,Validators.minLength(4),Validators.maxLength(10)]] 
     });
@@ -46,9 +48,12 @@ export class RegisterComponent implements OnInit {
   Register(){
     var newUser:UserModel={
       Email:this.userForm.value.email,
-      Password:this.userForm.value.Password
+      Password:this.userForm.value.Password,
+      Name: this.userForm.value.name
     }
     console.log(newUser);
+
+    this.service.SignUp(newUser).subscribe((data)=>alert(data.message))
     //
     //When i will have the server
     //

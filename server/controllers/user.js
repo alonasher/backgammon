@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const User = require('../Models/user')
 
 //const uri = `mongodb+srv://${username}:${password}@cluster0.6kcz7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@backgammon.6kcz7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,{
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME ||'sela'}:${process.env.MONGO_PASSWORD||'Selaproject'}@backgammon.6kcz7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,{
   useNewUrlParser : true,
   useUnifiedTopology : true
 });
@@ -104,13 +104,14 @@ router.patch(`${api}/lost`,(req,res)=>{
 
 //#region POST Functions
 router.post(`${api}/add`,(req,res)=>{
+    console.log(req.body);
     const {email,password,username}=req.body;
 
     const user = new User({
         _id : new mongoose.Types.ObjectId(),
-        email,
-        password,
-        username
+        email :req.body.Email,
+        password : req.body.Password,
+        username : req.body.Name
     });
 
     user.save().then(()=>{

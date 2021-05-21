@@ -6,9 +6,10 @@ const bodyParser = require('body-parser')
 const socket = require('socket.io')
 const userController = require('./controllers/user');
 
+app.use(cors());
 app.use(bodyParser.json());
 
-const port = process.env.SERVER_PORT;
+const port = process.env.SERVER_PORT ||3000;
 
 app.use(userController);
 
@@ -50,8 +51,8 @@ io.on('connection', (socket => {
   })
 
   socket.on('private message',(data)=>{
-    console.log(socket.id);
-    io.to(socket.id).emit('chat', data);
+    console.log(data);
+    io.to(data.to.token).emit('chat', data);
   });
 
   socket.on('disconnect',()=>{
@@ -64,6 +65,10 @@ io.on('connection', (socket => {
     }catch(err){
       console.error("Error occurd!" , err);
     }
+  })
+
+  socket.on('game play',(data)=>{
+    io.to(data.to.token).emit('gameplay',data)
   })
 }))
 

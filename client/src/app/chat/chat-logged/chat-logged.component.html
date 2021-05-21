@@ -1,10 +1,10 @@
 <!-- <div>vbf</div> -->
 <div class="split left">
-  <app-chat2></app-chat2>
+  <app-chat2 [to] = "selectedUser"></app-chat2>
   </div>
   
   <div class="split right">
-    <app-logged-in></app-logged-in>
+    <app-logged-in (getPrivateRoom)="getPrivateRoom($event)"></app-logged-in>
   </div>
 
 
