@@ -29,21 +29,19 @@ router.get(`${api}/all`,(req,res)=>{
 });
 
 router.post(`${api}/login`,(req,res)=>{
-    const {email,password} = req.body.User;
-    
+    const email = req.body.Email;
+    const password = req.body.Password
     mongoose.set('useFindAndModify', false);
     User.findOneAndUpdate({email :email, password : password},{'online' : true},{new : true}).then((user)=>{
         if(user){
             res.status(200).json({
                 "id" : `${user._id}`,
                 'ok':true
-            })
-        }
-        else{
-            res.status(500).json({
-                message : "Wrond email or password!"
-            })
-        }
+            })}
+    })
+    res.status(500).json({
+                message : "Wrond email or password!",
+                'ok':false
     })
 })
 

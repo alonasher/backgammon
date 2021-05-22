@@ -36,11 +36,13 @@ export class LogInComponent implements OnInit {
       Email:this.userForm.value.email,
       Password:this.userForm.value.Password
     }
-    this.service.LogInFromService(User).subscribe(b=>{
-      console.log();
-      
-      if(b.ok){
+    this.service.LogIn(User).subscribe((data)=>{
+      if(data.ok){
         this.NavigateToNextPage()
+      }else{
+        console.log('here');
+        
+        alert(data.message);
       }
     })
   }

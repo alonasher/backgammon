@@ -19,12 +19,10 @@ export class ServerServiceService {
     JSON.stringify(User),{headers:this.headers})
     .pipe(map((res:any)=><any>res));
     }
-    LogInFromService(User:UserModel):Observable<any>{
+    
+  LogIn(User:UserModel):Observable<any>{
       return this.http.post(`${this.userApi}/login`,
     JSON.stringify(User),{headers:this.headers})
     .pipe(map((res:any)=><any>res));
-
-    // return this.http.get(`{this.userApi}/login`)
-    //         .pipe(map((res) => <string>(res)));
     }
 }
