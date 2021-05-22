@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Dice } from 'src/app/Model/Dice';
+import { PlayMove } from 'src/app/Model/PlayMove';
 import {  Chips } from '../../Model/Chips';
 import { House} from '../../Model/House';
+import { IGameService } from './igame.service';
 // import rollADie from 'roll-a-die';
 
 const AmountOfHouse=28;//24 houses+ 0,25 win house+2 out houses one for black one for white
@@ -26,10 +28,11 @@ export class GameComponent implements OnInit {
     CouldLandOn:false
   }
   
-  constructor() {
+  constructor(private service:IGameService) {
     this.CreateHouses()
    }
    ngOnInit(): void {
+    this.service.listen('gameplay').subscribe((data)=>{this.GetInformationOnMoveFromOtherPlayer(data)});
   }
 
   //create
@@ -302,8 +305,14 @@ export class GameComponent implements OnInit {
   }
   ChipKillsOtherChip(KillerChip:Chips,MurderdChip:Chips,TheHouse:House){
     TheHouse.ChipsInHouse.pop()
-    if(MurderdChip.Color==="White")this.AllHouses[WhitKillHouse].ChipsInHouse.push(MurderdChip)
-    else this.AllHouses[BlackKillHouse].ChipsInHouse.push(MurderdChip)
+    if(MurderdChip.Color==="White"){
+      this.AllHouses[WhitKillHouse].ChipsInHouse.push(MurderdChip)
+      this.MoveToOtherPersonInformation(TheHouse,this.AllHouses[WhitKillHouse])
+    }
+    else{
+      this.AllHouses[BlackKillHouse].ChipsInHouse.push(MurderdChip)
+      this.MoveToOtherPersonInformation(TheHouse,this.AllHouses[BlackKillHouse])
+    } 
     TheHouse.ChipsInHouse.push(KillerChip)
     // this.MoveKilledToKilledHouse(MurderdChip)
   }
@@ -318,6 +327,7 @@ export class GameComponent implements OnInit {
       }
       else EndHouse.ChipsInHouse.push(chip)
     }
+    this.MoveToOtherPersonInformation(StartHouse,EndHouse)
     this.CheckIfYouWin(chip.Color)
   }
   checkIfKill(EndHouse:House,chip:Chips){
@@ -543,6 +553,22 @@ export class GameComponent implements OnInit {
 
 
   //////for socket/////
-  // SendAfterMov
+  // SendAfterMove///
+  MoveToOtherPersonInformation(StartHous:House,EndHouse:House){
+    var move:PlayMove={
+      StartHouse:StartHous,
+      EndHouse:EndHouse
+    }
+    console.log(move);
+    this.service.emit('game play',{
+      PlayMove:move
+    })
+  }
+  GetInformationOnMoveFromOtherPlayer(data:PlayMove){
+    const startHous:House=data.StartHouse
+    const endHouse:House=data.EndHouse
+    this.AllHouses[startHous.Id].ChipsInHouse=startHous.ChipsInHouse
+    this.AllHouses[endHouse.Id].ChipsInHouse=endHouse.ChipsInHouse
+  }
   
 }

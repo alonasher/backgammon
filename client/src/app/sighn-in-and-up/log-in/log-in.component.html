@@ -35,7 +35,7 @@
               </div>
           </div>
           <!-- <button class="btn btn-light">Log in</button> -->
-            <button class="btn btn-primary btn-block btn-large" [disabled]="!AllowBtn()">Let me in</button>
+            <button class="btn btn-primary btn-block btn-large" [disabled]="!AllowBtn()" (click)="LogIn()" >Let me in</button>
       </form>
       </div>
   </div>

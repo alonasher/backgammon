@@ -28,14 +28,15 @@ router.get(`${api}/all`,(req,res)=>{
     });
 });
 
-router.get(`${api}/login`,(req,res)=>{
-    const {email,password} = req.body;
+router.post(`${api}/login`,(req,res)=>{
+    const {email,password} = req.body.User;
     
     mongoose.set('useFindAndModify', false);
     User.findOneAndUpdate({email :email, password : password},{'online' : true},{new : true}).then((user)=>{
         if(user){
             res.status(200).json({
-                "id" : `${user._id}`
+                "id" : `${user._id}`,
+                'ok':true
             })
         }
         else{
