@@ -14,8 +14,10 @@ function rollDice() {
     const dice = [...document.querySelectorAll(".die-list")];
     for (let index = 0; index < dice.length; index++) {
       // const element = array[index];
+      console.log(`numbers are ${this.numbers}`);
       toggleClasses(dice[index])
-      dice[index].dataset.roll=numbers[index]
+      console.log(`numbers of dice are ${this.numbers[index]}`);
+      dice[index].dataset.roll=this.numbers[index]
     }
   }
   function returnNumbers() {
@@ -34,6 +36,7 @@ function rollDice() {
   }
   function GetNumbersFromClient(numbers) {
     this.numbers=numbers;
+    console.log(`this.numbers=${this.numbers}`);
     RollOtherUsesrDice()
   }
   // console.log( document.getElementById("roll-button"))

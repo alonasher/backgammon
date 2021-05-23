@@ -198,7 +198,7 @@ export class GameComponent implements OnInit {
             }
           }
         }
-        this.playerTuchedTheDice()
+        if(this.dice.length===2||this.dice.length===4||this.dice.length===0)this.playerTuchedTheDice()
       }
       this.turnAllHomesToBeCantLand();
       // this.CheckIfYouWin(chip.Color)
@@ -349,8 +349,12 @@ export class GameComponent implements OnInit {
 
   AllowButton():boolean{
     // return this.dice.length===0
+    console.log(`length of dice is ${this.dice.length}`);
+    
     let chip:Chips={Color:"White"}
-    if(this.dice.length===0)return true
+    // if(this.dice.length===0)return true
+    if(this.dice.length===0&&this.yourColor!==this.TurnsColor)return true
+    if(this.dice.length===0&&this.yourColor===""&&this.TurnsColor==="")return true
     if(this.dice.length===1||this.dice.length>2){
        if(this.TurnsColor==="White"){
       if(this.AllHouses[WhitKillHouse].ChipsInHouse.length!==0){
@@ -513,6 +517,7 @@ export class GameComponent implements OnInit {
       if($event[0]===$event[1]&&this.dice.length===2)this.GetNumbersFromDice($event)
       console.log(this.dice);
     }
+    // if(this.dice.length===2||this.dice.length===4)this.playerTuchedTheDice()
     this.playerTuchedTheDice()
   }
   CheckIfYouWin(Color:string):boolean{
@@ -599,12 +604,18 @@ export class GameComponent implements OnInit {
     this.service.emit('dice throw',this.dice)
   }
   otherPlayerTuchedDice(data:Dice[]){
+    let checkIfNeedToRollDice:boolean
+    if(this.dice.length===0)checkIfNeedToRollDice=true
+    else checkIfNeedToRollDice=false
     this.dice=data
-    let moves=[]
-    for (let index = 0; index < this.dice.length; index++) {
-      moves.push(this.dice[index].DiceDots)
+    if(checkIfNeedToRollDice){
+      console.log(`socket sends new dice lenght is ${data.length}`);
+      let moves=[]
+      for (let index = 0; index < this.dice.length; index++) {
+        moves.push(this.dice[index].DiceDots)
+      }
+      this.child.sendNumbersAndRollThem(moves)
     }
-    this.child.sendNumbersAndRollThem(moves)
     //GetNumbersFromClient
   }
   getColor(){
