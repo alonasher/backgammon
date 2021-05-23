@@ -10,15 +10,23 @@ export class ChatLoggedComponent implements OnInit {
 
   selectedUser:any;
   connectedUsersList :any[]=[];
+  accept : boolean =false;
   constructor(private service:WebSocketService) { }
 
   ngOnInit(): void {
-    this.service.listen('connected').subscribe((data)=>{this.connectedUsersList=data;console.log('list',data);
-    })
+    this.service.listen('connected').subscribe((data)=>{this.connectedUsersList=data;})
+    this.service.listen('gameInvite').subscribe((data)=>{alert(` ${data.username} invited you to a game!`); this.accept=!this.accept})
   }
 
-  getPrivateRoom(event:any){
-    console.log(event);
-    this.selectedUser = event;
+  getPrivateRoom(user:any){
+    console.log('selcted user' , user);
+    this.selectedUser = user;
+  }
+
+  inviteToGame(user:any){
+    console.log('selcted user' , user);
+    //this.selectedUser = user;
+
+    this.service.emit('game invite',user);
   }
 }

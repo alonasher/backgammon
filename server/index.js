@@ -26,9 +26,7 @@ const io = socket(server, {
 
 let connectedUsersList=[];
 io.on('connection', (socket => {
-  //connectedUsersList.push({'token':socket.id})
   
-
   socket.on('new connection',(data)=>{
       connectedUsersList.push({
         'id' : data.id,
@@ -36,6 +34,15 @@ io.on('connection', (socket => {
         'token' : socket.id
       })
       io.sockets.emit('connected',connectedUsersList)
+  })
+
+  socket.on('accept game',(data)=>{
+    io.to(data.token).emit('accept game',data);
+  })
+  socket.on('game invite',(data)=>{
+    data["from"] = socket.id
+    console.log(data);
+    io.to(data.token).emit('gameInvite',data);
   })
 
   socket.on('chat',(data)=>{

@@ -4,7 +4,7 @@
   </div>
   
   <div class="split right">
-    <app-logged-in (getPrivateRoom)="getPrivateRoom($event)" [connectedUsers]="connectedUsersList"></app-logged-in>
+    <app-logged-in (getPrivateRoom)="getPrivateRoom($event)" (inviteToGame)="inviteToGame($event)" [userAccepted]="accept" [connectedUsers]="connectedUsersList"></app-logged-in>
   </div>
 
 

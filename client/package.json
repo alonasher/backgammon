@@ -21,6 +21,7 @@
     "@angular/router": "~11.2.13",
     "bootstrap": "^5.0.1",
     "guid-typescript": "^1.0.9",
+    "ngx-simple-modal": "^1.4.17",
     "ngx-socket-io": "^4.0.0",
     "roll-a-die": "^2.0.1",
     "rxjs": "~6.6.0",

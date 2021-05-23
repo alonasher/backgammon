@@ -1,3 +1,8 @@
 .list-group-item:hover {
-    background-color: #C98D0D;
+    background-color: #949aa7;
+}
+
+.list-item-fixed{
+    display: flex;
+    justify-content: space-between;
 }

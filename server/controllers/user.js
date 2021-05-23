@@ -121,7 +121,7 @@ router.post(`${api}/login`,(req,res)=>{
             })
     }).catch((err)=>{
         res.status(500).json({
-            message : "Wrond email or password!"
+            message : "Wrong email or password!"
         })
     })
 
