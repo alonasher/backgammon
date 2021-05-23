@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, OnInit, ViewChild } from '@angular/core';
 import { Dice } from 'src/app/Model/Dice';
 import { PlayMove } from 'src/app/Model/PlayMove';
 import {  Chips } from '../../Model/Chips';
 import { House} from '../../Model/House';
+import { RoolDiceComponent } from '../rool-dice/rool-dice.component';
 import { IGameService } from './igame.service';
 // import rollADie from 'roll-a-die';
 
@@ -16,12 +17,13 @@ const BlackKillHouse=27
 })
 export class GameComponent implements OnInit {
   TurnsColor:string=""
-  yourColor:string="White";
+  yourColor:string="";
   public isTrue:boolean=false
   AllHouses:House[]=[];
   public halfeTopHouse:House[]=[]
   public halfeBottomHouse:House[]=[]
   dice:Dice[]=[];
+  @ViewChild(RoolDiceComponent) child: any
   public startHouse:House={
     Id:0,
     ChipsInHouse:[],
@@ -33,6 +35,10 @@ export class GameComponent implements OnInit {
    }
    ngOnInit(): void {
     this.service.listen('gameplay').subscribe((data)=>{this.GetInformationOnMoveFromOtherPlayer(data)});
+    this.service.listen('changeturn').subscribe((data)=>{this.getTurn(data)});
+    this.service.listen('dicethrow').subscribe((data)=>{this.otherPlayerTuchedDice(data)});
+    this.service.listen('Getturn').subscribe((data)=>{this.yourTurnIs(data)});
+    
   }
 
   //create
@@ -126,7 +132,8 @@ export class GameComponent implements OnInit {
         this.startHouse=house
         console.log("MoveSolder");
         if(house.ChipsInHouse.length===0)return
-        console.log("more then 0 solders");
+        if(house.ChipsInHouse[0].Color===this.yourColor){
+          console.log("more then 0 solders");
         const chip=house.ChipsInHouse[house.ChipsInHouse.length-1]
         console.log("last chip");
         
@@ -141,6 +148,7 @@ export class GameComponent implements OnInit {
             this.MoveFromDeadHouse(house)
           }
         }
+      }
   }
   // CheckIfCouldLandWhenDead(house:House){
   //   const chip=house.ChipsInHouse[house.ChipsInHouse.length-1]
@@ -190,6 +198,7 @@ export class GameComponent implements OnInit {
             }
           }
         }
+        this.playerTuchedTheDice()
       }
       this.turnAllHomesToBeCantLand();
       // this.CheckIfYouWin(chip.Color)
@@ -494,6 +503,7 @@ export class GameComponent implements OnInit {
   GetNumbersFromDice($event:number[]){
     if(this.dice.length!==2)this.ChangeTurns()
     
+    
     for (let index = 0; index < $event.length; index++) {
       this.dice.push(
         {
@@ -502,8 +512,8 @@ export class GameComponent implements OnInit {
       })
       if($event[0]===$event[1]&&this.dice.length===2)this.GetNumbersFromDice($event)
       console.log(this.dice);
-      
     }
+    this.playerTuchedTheDice()
   }
   CheckIfYouWin(Color:string):boolean{
     if(Color="Black"){
@@ -541,34 +551,81 @@ export class GameComponent implements OnInit {
     return false
   }
   ChangeTurns(){
+    console.log('change turn');
+    
+    
     let randomNum=Math.floor(Math.random() * 10); 
     if(this.TurnsColor===""){
+      this.getColor()
       if(randomNum<5)this.TurnsColor="White"
       else this.TurnsColor="Black"
+      this.MoveTurnToTheNext()
       return
     }
     if(this.TurnsColor==="White")this.TurnsColor="Black"
     else this.TurnsColor="White"
+    this.MoveTurnToTheNext()
   }
 
 
   //////for socket/////
-  // SendAfterMove///
+  // SendAfterMove
   MoveToOtherPersonInformation(StartHous:House,EndHouse:House){
     var move:PlayMove={
       StartHouse:StartHous,
       EndHouse:EndHouse
     }
     console.log(move);
-    this.service.emit('game play',{
-      PlayMove:move
-    })
+    this.service.emit('game play',move)
   }
   GetInformationOnMoveFromOtherPlayer(data:PlayMove){
     const startHous:House=data.StartHouse
     const endHouse:House=data.EndHouse
     this.AllHouses[startHous.Id].ChipsInHouse=startHous.ChipsInHouse
     this.AllHouses[endHouse.Id].ChipsInHouse=endHouse.ChipsInHouse
+  }
+  MoveTurnToTheNext(){
+    console.log(`emit turn in socket`);
+    
+    this.service.emit('change turn',this.TurnsColor)
+  }
+  getTurn(data:string){
+    console.log(`in socket ${data}`);
+    
+    this.TurnsColor=data
+  }
+
+  playerTuchedTheDice(){
+    this.service.emit('dice throw',this.dice)
+  }
+  otherPlayerTuchedDice(data:Dice[]){
+    this.dice=data
+    let moves=[]
+    for (let index = 0; index < this.dice.length; index++) {
+      moves.push(this.dice[index].DiceDots)
+    }
+    this.child.sendNumbersAndRollThem(moves)
+    //GetNumbersFromClient
+  }
+  getColor(){
+    if(this.yourColor===""){
+      let randomNum=Math.floor(Math.random() * 10); 
+      if(randomNum<5){
+        this.yourColor="White"
+        this.service.emit('Get turn',"Black")
+        
+      }
+      else{
+        this.yourColor="Black"
+        this.service.emit('Get turn',"White")
+        
+      }
+    }
+  }
+  yourTurnIs(data:string){
+    if(this.yourColor===""){
+      this.yourColor=data
+    }
   }
   
 }

@@ -29,4 +29,9 @@ export class RoolDiceComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  sendNumbersAndRollThem(num:number[]){
+    console.log('parent methode in son works');
+    
+    GetNumbersFromClient(num)
+  }
 }

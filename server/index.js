@@ -68,7 +68,24 @@ io.on('connection', (socket => {
   })
 
   socket.on('game play',(data)=>{
-    io.to(data.to.token).emit('gameplay',data)
+    io
+    // .to(data.to.token)
+    .emit('gameplay',data)
+  })
+  socket.on('change turn',(data)=>{
+    io
+    //.to(data.to.token)
+    .emit('changeturn',data)
+  })
+  socket.on('dice throw',(data)=>{
+    io
+    //.to(data.to.token)
+    .emit('dicethrow',data)
+  })
+  socket.on('Get turn',(data)=>{
+    io
+    //.to(data.to.token)
+    .emit('Getturn',data)
   })
 }))
 
