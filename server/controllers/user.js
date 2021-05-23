@@ -6,6 +6,7 @@ const api = "/user";
 const mongoose = require('mongoose')
 const User = require('../Models/user')
 
+var connectedUsersList = [];
 //const uri = `mongodb+srv://${username}:${password}@cluster0.6kcz7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME ||'sela'}:${process.env.MONGO_PASSWORD||'Selaproject'}@backgammon.6kcz7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,{
   useNewUrlParser : true,
@@ -28,22 +29,7 @@ router.get(`${api}/all`,(req,res)=>{
     });
 });
 
-router.post(`${api}/login`,(req,res)=>{
-    const email = req.body.Email;
-    const password = req.body.Password
-    mongoose.set('useFindAndModify', false);
-    User.findOneAndUpdate({email :email, password : password},{'online' : true},{new : true}).then((user)=>{
-        if(user){
-            res.status(200).json({
-                "id" : `${user._id}`,
-                'ok':true
-            })}
-    })
-    res.status(500).json({
-                message : "Wrond email or password!",
-                'ok':false
-    })
-})
+
 
 router.get(`${api}/:id`,(req,res)=>{
     const userId = req.params.id;
@@ -124,5 +110,21 @@ router.post(`${api}/add`,(req,res)=>{
     });
 });
 
+router.post(`${api}/login`,(req,res)=>{
+    const email = req.body.Email;
+    const password = req.body.Password
+    mongoose.set('useFindAndModify', false);
+    User.findOneAndUpdate({email :email, password : password},{'online' : true},{new : true}).then((user)=>{    
+        res.status(200).json({
+                "id" : `${user._id}`,
+                "name" : user.username
+            })
+    }).catch((err)=>{
+        res.status(500).json({
+            message : "Wrond email or password!"
+        })
+    })
+
+})
 //#endregion
 module.exports = router;

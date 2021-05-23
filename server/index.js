@@ -4,7 +4,11 @@ const app = express();
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const socket = require('socket.io')
+
 const userController = require('./controllers/user');
+
+const mongoose = require('mongoose')
+const User = require('./Models/user')
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,18 +29,17 @@ const io = socket(server, {
 
 let connectedUsersList=[];
 io.on('connection', (socket => {
-  connectedUsersList.push({'token':socket.id})
+  //connectedUsersList.push({'token':socket.id})
   io.sockets.emit('connected',connectedUsersList)
 
-  // socket.on('emitNumber', (data) => {
-  //     console.log(data);
-  //     io.emit('recievedNumber', data)
-  // })
-
-  // socket.on('emitRandom', () => {
-  //     console.log("in random");
-  //     io.emit('randomNumber', Math.random())
-  // })
+  socket.on('new connection',(data)=>{
+      connectedUsersList.push({
+        'id' : data.id,
+        'username' : data.name,
+        'token' : socket.id
+      })
+      console.log(connectedUsersList);
+  })
 
   socket.on('chat',(data)=>{
       io.sockets.emit('chat',data);

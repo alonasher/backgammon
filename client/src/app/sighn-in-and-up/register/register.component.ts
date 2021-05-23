@@ -51,19 +51,9 @@ export class RegisterComponent implements OnInit {
       Password:this.userForm.value.Password,
       Name: this.userForm.value.name
     }
-    console.log(newUser);
-
     this.service.SignUp(newUser).subscribe((data)=>alert(data.message))
-    //
-    //When i will have the server
-    //
-    // this.IService.LogInUser(newUser).subscribe(b=>{
-    //   console.log(b);
-    //   if(b){
-    //     this.MoveToHomePage()
-    //   }
-    // })
   }
+  
   MoveToHomePage(){
     this.router.navigateByUrl('/Start');
   }

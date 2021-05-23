@@ -27,7 +27,6 @@ export class Chatv2Component implements OnInit {
   updateMessage(data: any) {
     this.feedback = '';
     if(!!!data) return;
-    //console.log(`${data.handle} : ${data.message}`);
     this.output.push(data);
   }
   sendMessage() {
@@ -39,14 +38,20 @@ export class Chatv2Component implements OnInit {
   }
 
   privateMessage(){
+    if(!this.userName) return;
     if(this.to){
       this.service.emit('private message', {
         to:this.to,
         message: this.message,
         handle: this.userName
       });
-    }
+    }  
+    this.output.push({
+      message: this.message,
+      handle: this.userName
+    })
     this.message = "";
+    this.feedback= "";
   }
 
   messageTyping(): void {
