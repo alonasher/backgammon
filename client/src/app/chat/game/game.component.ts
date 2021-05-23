@@ -1,4 +1,5 @@
-import { Component, Directive, OnInit, ViewChild } from '@angular/core';
+import { Component, Directive, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Dice } from 'src/app/Model/Dice';
 import { PlayMove } from 'src/app/Model/PlayMove';
 import {  Chips } from '../../Model/Chips';
@@ -16,6 +17,7 @@ const BlackKillHouse=27
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
+  @Input() to:any;
   TurnsColor:string=""
   yourColor:string="";
   public isTrue:boolean=false
@@ -30,7 +32,7 @@ export class GameComponent implements OnInit {
     CouldLandOn:false
   }
   
-  constructor(private service:IGameService) {
+  constructor(private service:IGameService,private router: Router) {
     this.CreateHouses()
    }
    ngOnInit(): void {
@@ -38,6 +40,8 @@ export class GameComponent implements OnInit {
     this.service.listen('changeturn').subscribe((data)=>{this.getTurn(data)});
     this.service.listen('dicethrow').subscribe((data)=>{this.otherPlayerTuchedDice(data)});
     this.service.listen('Getturn').subscribe((data)=>{this.yourTurnIs(data)});
+    this.service.listen('youlose').subscribe((data)=>{this.youLost()});
+    
     
   }
 
@@ -337,8 +341,17 @@ export class GameComponent implements OnInit {
       else EndHouse.ChipsInHouse.push(chip)
     }
     this.MoveToOtherPersonInformation(StartHouse,EndHouse)
-    this.CheckIfYouWin(chip.Color)
+    if(this.CheckIfYouWin(chip.Color)){
+      this.MoveOtherPlayerToLosePage()
+      this.navigateToWinPage()
+    }
   }
+  navigateToWinPage(){
+      this.router.navigateByUrl('/ChatAndPlay/Game/won');
+  }
+  navigateToLosePage(){
+    this.router.navigateByUrl('/ChatAndPlay/Game/Lose');
+}
   checkIfKill(EndHouse:House,chip:Chips){
     if(chip.Color===EndHouse.ChipsInHouse[0].Color)
     return false
@@ -522,6 +535,7 @@ export class GameComponent implements OnInit {
   }
   CheckIfYouWin(Color:string):boolean{
     if(Color="Black"){
+      
       return this.AllHouses[0].ChipsInHouse.length===15
     }
     else{
@@ -581,33 +595,43 @@ export class GameComponent implements OnInit {
       EndHouse:EndHouse
     }
     console.log(move);
-    this.service.emit('game play',move)
+    this.service.emit('game play',{
+      to:this.to,
+      Move:move
+    }
+    )
   }
-  GetInformationOnMoveFromOtherPlayer(data:PlayMove){
-    const startHous:House=data.StartHouse
-    const endHouse:House=data.EndHouse
+  GetInformationOnMoveFromOtherPlayer(data:any){
+    const startHous:House=data.Move.StartHouse
+    const endHouse:House=data.Move.EndHouse
     this.AllHouses[startHous.Id].ChipsInHouse=startHous.ChipsInHouse
     this.AllHouses[endHouse.Id].ChipsInHouse=endHouse.ChipsInHouse
   }
   MoveTurnToTheNext(){
     console.log(`emit turn in socket`);
     
-    this.service.emit('change turn',this.TurnsColor)
+    this.service.emit('change turn',{
+      to:this.to,
+      Turn:this.TurnsColor
+    })
   }
-  getTurn(data:string){
+  getTurn(data:any){
     console.log(`in socket ${data}`);
     
-    this.TurnsColor=data
+    this.TurnsColor=data.Turn
   }
 
   playerTuchedTheDice(){
-    this.service.emit('dice throw',this.dice)
+    this.service.emit('dice throw',{
+      to:this.to,
+      Dice:this.dice
+    })
   }
-  otherPlayerTuchedDice(data:Dice[]){
+  otherPlayerTuchedDice(data:any){
     let checkIfNeedToRollDice:boolean
     if(this.dice.length===0)checkIfNeedToRollDice=true
     else checkIfNeedToRollDice=false
-    this.dice=data
+    this.dice=data.Dice
     if(checkIfNeedToRollDice){
       console.log(`socket sends new dice lenght is ${data.length}`);
       let moves=[]
@@ -618,25 +642,38 @@ export class GameComponent implements OnInit {
     }
     //GetNumbersFromClient
   }
+  
   getColor(){
     if(this.yourColor===""){
       let randomNum=Math.floor(Math.random() * 10); 
       if(randomNum<5){
         this.yourColor="White"
-        this.service.emit('Get turn',"Black")
+        this.service.emit('Get turn',{
+          to:this.to,
+          Color:"Black"
+        })
         
       }
       else{
         this.yourColor="Black"
-        this.service.emit('Get turn',"White")
+        this.service.emit('Get turn',{
+          to:this.to,
+          Color:"White"
+        })
         
       }
     }
   }
-  yourTurnIs(data:string){
+  yourTurnIs(data:any){
     if(this.yourColor===""){
-      this.yourColor=data
+      this.yourColor=data.Color
     }
+  }
+  MoveOtherPlayerToLosePage(){
+    this.service.emit('you lose',{to:this.to})
+  }
+  youLost(){
+    this.navigateToLosePage()
   }
   
 }

@@ -1,9 +1,9 @@
 <div class="splitLeft split left">
-    <app-game></app-game>
+    <app-game [to] = "selectedUser"></app-game>
   </div>
   
   <div class="splitRight split right">
     <div class="containerChat">
-      <app-chat2></app-chat2>
+      <app-chat2 [to] = "selectedUser"></app-chat2>
     </div>
   </div>

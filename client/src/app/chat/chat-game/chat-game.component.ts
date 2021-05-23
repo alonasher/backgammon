@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatGameComponent implements OnInit {
 
+  selectedUser:any
   constructor() { }
 
   ngOnInit(): void {
