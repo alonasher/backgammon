@@ -9,9 +9,12 @@ import { WebSocketService } from 'src/app/chatv2/web-socket.service';
 export class ChatLoggedComponent implements OnInit {
 
   selectedUser:any;
+  connectedUsersList :any[]=[];
   constructor(private service:WebSocketService) { }
 
   ngOnInit(): void {
+    this.service.listen('connected').subscribe((data)=>{this.connectedUsersList=data;console.log('list',data);
+    })
   }
 
   getPrivateRoom(event:any){

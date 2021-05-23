@@ -20,7 +20,7 @@ export class Chatv2Component implements OnInit {
 
   constructor(private socket: Socket, private service:WebSocketService) {}
   ngOnInit(): void {
-    this.service.listen('connected').subscribe((data)=>{this.connectedUsers = data});
+    //this.service.listen('connected').subscribe((data)=>{this.connectedUsers = data});
     this.service.listen('typing').subscribe((data)=>{this.updateFeedback(data)});
     this.service.listen('chat').subscribe((data)=>{this.updateMessage(data)});
   }

@@ -7,9 +7,6 @@ const socket = require('socket.io')
 
 const userController = require('./controllers/user');
 
-const mongoose = require('mongoose')
-const User = require('./Models/user')
-
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -30,7 +27,7 @@ const io = socket(server, {
 let connectedUsersList=[];
 io.on('connection', (socket => {
   //connectedUsersList.push({'token':socket.id})
-  io.sockets.emit('connected',connectedUsersList)
+  
 
   socket.on('new connection',(data)=>{
       connectedUsersList.push({
@@ -38,7 +35,7 @@ io.on('connection', (socket => {
         'username' : data.name,
         'token' : socket.id
       })
-      console.log(connectedUsersList);
+      io.sockets.emit('connected',connectedUsersList)
   })
 
   socket.on('chat',(data)=>{
@@ -54,15 +51,12 @@ io.on('connection', (socket => {
   })
 
   socket.on('private message',(data)=>{
-    console.log(data);
     io.to(data.to.token).emit('chat', data);
   });
 
   socket.on('disconnect',()=>{
     try{
-      console.log("Before",connectedUsersList);
       removeItem(connectedUsersList,socket.id);
-      console.log("After",connectedUsersList);
       io.sockets.emit('connected',connectedUsersList)
 
     }catch(err){
