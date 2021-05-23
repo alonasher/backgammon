@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { WebSocketService } from './web-socket.service';
 
@@ -17,8 +17,11 @@ export class Chatv2Component implements OnInit {
   feedback!: string;
   connectedUsers:any[]=[];
   @Input() to:any;
+  @Output() UserToPlayWith = new EventEmitter<any[]>();
 
-  constructor(private socket: Socket, private service:WebSocketService) {}
+  constructor(private socket: Socket, private service:WebSocketService) {
+    this.UserToPlayWith.emit(this.to);
+  }
   ngOnInit(): void {
     //this.service.listen('connected').subscribe((data)=>{this.connectedUsers = data});
     this.service.listen('typing').subscribe((data)=>{this.updateFeedback(data)});

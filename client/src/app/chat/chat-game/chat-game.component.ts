@@ -12,5 +12,8 @@ export class ChatGameComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  GetPlayer($event:any){
+    this.selectedUser=$event
+  }
 
 }

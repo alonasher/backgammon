@@ -4,6 +4,7 @@
   
   <div class="splitRight split right">
     <div class="containerChat">
-      <app-chat2 [to] = "selectedUser"></app-chat2>
+      <app-chat2 (UserToPlayWith)="GetPlayer($event)" [to] = "selectedUser"></app-chat2>
+      <!-- [to] = "selectedUser" -->
     </div>
   </div>
