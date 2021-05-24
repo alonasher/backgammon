@@ -34,3 +34,10 @@
     width: 150px;
     border-radius: 50%;
   }
+  .messege{
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+    z-index: 10;
+  }

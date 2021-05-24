@@ -1,4 +1,13 @@
 <!-- <div>vbf</div> -->
+<div class="messege" *ngIf="Confirm">
+  <div>
+  {{AcsseptName}} invited you to a game! Whould you like to play?
+</div>
+<div>
+  <button (click)="Acssept()">Accsept</button>
+  <button (click)="Denay()">Denay</button>
+</div>
+</div>
 <div class="split left">
   <app-chat2 [to] = "selectedUser"></app-chat2>
   </div>

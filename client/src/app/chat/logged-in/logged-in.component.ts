@@ -1,5 +1,5 @@
 import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WebSocketService } from 'src/app/chatv2/web-socket.service';
 
 
@@ -9,7 +9,7 @@ import { WebSocketService } from 'src/app/chatv2/web-socket.service';
   styleUrls: ['./logged-in.component.css']
 })
 export class LoggedInComponent implements OnInit {
-
+  user:any
   @Input() connectedUsers:any[]=[];
   @Output() getPrivateRoom:EventEmitter<any> = new EventEmitter();
   @Output() inviteToGame: EventEmitter<any>= new EventEmitter();
@@ -17,24 +17,33 @@ export class LoggedInComponent implements OnInit {
   userId:any = ""
   @Input() userAccepted:boolean = false;
 
-  constructor( private route: ActivatedRoute, private service:WebSocketService) {}
+  constructor( private route: ActivatedRoute, private service:WebSocketService,private router: Router) {}
 
   ngOnInit(): void {
     
     this.route.queryParams.subscribe(params=>this.userId=params.ID)
+    console.log(`${this.userId} =this.userId`);
+    
     //this.service.emit('connect',userId);
     //this.service.listen('connected').subscribe((data)=>{this.connectedUsers = data});
   }
 
   onPrivateMessageClick(user:any){
+    this.user=user
     console.log(user);
     //this.service.emit('private message',user);
     this.getPrivateRoom.emit(user);
   }
-
   onInviteClick(user:any){
-    console.log('on clinck',user);
-    //this.service.emit('private message',user);
+    this.user=user
+    console.log('game invite2',user);
+    this.service.emit('game invite2',{To:user,from:this.userId});
     this.inviteToGame.emit(user);
+    this.NavigatToGamePage()
   }  
+  NavigatToGamePage(){
+    this.router.navigate(['ChatAndPlay/chatGame'],{queryParams: { accept: false,User:this.user }});
+    // this.navCtrl.navigate('ChatAndPlay/chatGame', { accept: false,User:this.user });
+    // this.router.navigate(['ChatAndPlay/chatGame'], { state: { accept: false,User:this.user } });
+  }
 }

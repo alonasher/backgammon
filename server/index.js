@@ -91,6 +91,16 @@ io.on('connection', (socket => {
     .to(data.to.token)
     .emit('Getturn',data)
   })
+  socket.on('game acssept',(data)=>{
+    data["from"] = socket.id
+    console.log(data);
+    io.to(data).emit('gameacssept',data);
+  })
+  socket.on('game invite2',(data)=>{
+    data["from"] = socket.id
+    console.log(data);
+    io.to(data.To.token).emit('gameinvite2',data);
+  })
 }))
 
 function removeItem(arr, value) {
