@@ -39,11 +39,10 @@ export class LoggedInComponent implements OnInit {
     console.log('game invite2',user);
     this.service.emit('game invite2',{To:user,from:this.userId});
     this.inviteToGame.emit(user);
-    this.NavigatToGamePage()
-  }  
-  NavigatToGamePage(){
-    this.router.navigate(['ChatAndPlay/chatGame'],{queryParams: { accept: false,User:this.user }});
-    // this.navCtrl.navigate('ChatAndPlay/chatGame', { accept: false,User:this.user });
-    // this.router.navigate(['ChatAndPlay/chatGame'], { state: { accept: false,User:this.user } });
+    this.NavigateToGamePage()
+  }
+
+  NavigateToGamePage(){
+    this.router.navigate(['game'],{queryParams: { accept: false,rivalToken:this.user.token }});
   }
 }

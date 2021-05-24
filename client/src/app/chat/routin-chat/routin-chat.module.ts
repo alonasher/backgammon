@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { ChatComponent } from '../chat/chat.component';
 import { ChatGameComponent } from '../chat-game/chat-game.component';
 import { ChatLoggedComponent } from '../chat-logged/chat-logged.component';
-import { Chatv2Component } from 'src/app/chatv2/chatv2.component';
 import { WinComponent } from '../game/win/win.component';
 import { LoseComponent } from '../game/lose/lose.component';
+import { AuthGuard } from 'src/app/services/guards/auth-guard';
 
 
 const routes: Routes = [
-  { path: 'ChatAndPlay/chatGame', component: ChatGameComponent},
-  { path: 'ChatAndPlay/Game/Lose', component: LoseComponent},
-  { path: 'ChatAndPlay/Game/won', component: WinComponent},
-  { path: 'ChatAndPlay/ChatList', component: ChatLoggedComponent},
-  { path: 'ChatAndPlay', component: ChatGameComponent},
-  
 
+  { path: 'lobby', component: ChatLoggedComponent, canActivate:[AuthGuard]},
+  { path: 'game', component: ChatGameComponent , canActivate:[AuthGuard]},
+  { path: 'lose', component: LoseComponent , canActivate:[AuthGuard]},
+  { path: 'win', component: WinComponent , canActivate:[AuthGuard]},
 ];
 
 @NgModule({

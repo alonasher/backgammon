@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WebSocketService } from 'src/app/chatv2/web-socket.service';
 import { UserModel } from 'src/app/Model/UserModel';
+import { AuthGuard } from 'src/app/services/guards/auth-guard';
 import { ServerServiceService } from 'src/app/services/server-service.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class LogInComponent implements OnInit {
 
   userForm: FormGroup;
   data:any;
-  constructor(private fb:FormBuilder,private service:ServerServiceService, private router: Router,private socketService:WebSocketService) { 
+  constructor(private fb:FormBuilder,private service:ServerServiceService, private router: Router
+    ,private socketService:WebSocketService,private authGuard:AuthGuard) { 
     this.userForm = this.fb.group({
       email:["", [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       Password:["", [Validators.required,Validators.minLength(4),Validators.maxLength(10)]],
@@ -41,6 +43,7 @@ export class LogInComponent implements OnInit {
       Password:this.userForm.value.Password
     }
     this.service.LogIn(User).subscribe((data)=>{
+      this.authGuard.givePermission();
       this.data = data;
       this.socketService.emit('new connection',data)  
       this.NavigateToNextPage();
@@ -51,7 +54,7 @@ export class LogInComponent implements OnInit {
   getUrl(){ return "url('src\assets\background_log_in.jpg')";}
 
 NavigateToNextPage(){
-  this.router.navigate(['/ChatAndPlay/ChatList'],{queryParams:{ID: this.data.id}});
+  this.router.navigate(['/lobby'],{queryParams:{ID: this.data.id}});
 }
 
 }

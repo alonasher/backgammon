@@ -41,8 +41,7 @@ export class GameComponent implements OnInit {
     this.service.listen('dicethrow').subscribe((data)=>{this.otherPlayerTuchedDice(data)});
     this.service.listen('Getturn').subscribe((data)=>{this.yourTurnIs(data)});
     this.service.listen('youlose').subscribe((data)=>{this.youLost()});
-    
-    
+    console.log('this rival token' , this.to);
   }
 
   //create
@@ -346,12 +345,7 @@ export class GameComponent implements OnInit {
       this.navigateToWinPage()
     }
   }
-  navigateToWinPage(){
-      this.router.navigateByUrl('/ChatAndPlay/Game/won');
-  }
-  navigateToLosePage(){
-    this.router.navigateByUrl('/ChatAndPlay/Game/Lose');
-}
+
   checkIfKill(EndHouse:House,chip:Chips){
     if(chip.Color===EndHouse.ChipsInHouse[0].Color)
     return false
@@ -672,8 +666,17 @@ export class GameComponent implements OnInit {
   MoveOtherPlayerToLosePage(){
     this.service.emit('you lose',{to:this.to})
   }
+  
   youLost(){
     this.navigateToLosePage()
+  }
+
+  navigateToWinPage(){
+    this.router.navigateByUrl('/win');
+  }
+
+  navigateToLosePage(){
+  this.router.navigateByUrl('/lose');
   }
   
 }

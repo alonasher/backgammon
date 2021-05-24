@@ -73,33 +73,39 @@ io.on('connection', (socket => {
 
   socket.on('game play',(data)=>{
     io
-    .to(data.to.token)
+    .to(data.to)
     .emit('gameplay',data)
   })
   socket.on('change turn',(data)=>{
     io
-    .to(data.to.token)
+    .to(data.to)
     .emit('changeturn',data)
   })
   socket.on('dice throw',(data)=>{
     io
-    .to(data.to.token)
+    .to(data.to)
     .emit('dicethrow',data)
   })
   socket.on('Get turn',(data)=>{
     io
-    .to(data.to.token)
+    .to(data.to)
     .emit('Getturn',data)
   })
+
   socket.on('game acssept',(data)=>{
     data["from"] = socket.id
     console.log(data);
     io.to(data).emit('gameacssept',data);
   })
+
   socket.on('game invite2',(data)=>{
     data["from"] = socket.id
     console.log(data);
     io.to(data.To.token).emit('gameinvite2',data);
+  })
+
+  socket.on('get user',(id)=>{
+
   })
 }))
 

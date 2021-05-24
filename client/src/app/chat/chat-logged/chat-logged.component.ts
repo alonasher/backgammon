@@ -35,9 +35,12 @@ export class ChatLoggedComponent implements OnInit {
     this.service.emit('game invite',user);
   }
   NavigatToGamePage(){
-    this.router.navigate(['ChatAndPlay/chatGame'],{queryParams: { accept: true,User:this.selectedUser }});
-   }
+    this.router.navigate(['game'],{queryParams: { accept: true,rivalToken:this.fromId }});
+  }
+
   AcsseptInvite(data:any){
+    console.log('to 1 ', data.To);
+    
     this.fromId=data.from
     this.selectedUser=this.connectedUsersList.find(u=>u.id===this.fromId)
     this.AcsseptName=data.username

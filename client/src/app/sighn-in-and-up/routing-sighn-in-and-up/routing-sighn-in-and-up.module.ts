@@ -5,9 +5,8 @@ import { LogInComponent } from '../log-in/log-in.component';
 import { RegisterComponent } from '../register/register.component';
 
 const routes: Routes = [
-  { path: 'SighnInUp/Register', component: RegisterComponent},
-  { path: 'SighnInUp', component:  RegisterComponent},
-  { path: 'SighnInUp/LogIn', component: LogInComponent},
+  { path: 'Register', component: RegisterComponent},
+  { path: 'LogIn', component: LogInComponent},
 
 ];
 

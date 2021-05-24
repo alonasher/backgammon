@@ -13,10 +13,10 @@ export class StartPageComponent implements OnInit {
   ngOnInit(): void {
   }
   MoveToRegister(){
-    this.router.navigateByUrl('/SighnInUp/Register');
+    this.router.navigateByUrl('/Register');
   }
   MoveToLogIn(){
-    this.router.navigateByUrl('/SighnInUp/LogIn');
+    this.router.navigateByUrl('/LogIn');
   }
 
 }
