@@ -20,7 +20,7 @@ export class ChatGameComponent implements OnInit {
   ngOnInit(): void {
     this.service.listen('gameacssept').subscribe((data)=>{this.accept=true})
     this.route.queryParams.subscribe((params)=>{
-      this.accept = params.accept
+      this.accept = JSON.parse(params.accept)
     })
   }
   GetPlayer($event:any){
@@ -28,7 +28,6 @@ export class ChatGameComponent implements OnInit {
   }
   getAccept():boolean{
     console.log(`accept that returns is ${this.accept}`);
-    
     return this.accept
   }
 
