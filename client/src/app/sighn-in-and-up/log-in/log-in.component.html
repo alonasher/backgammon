@@ -1,12 +1,11 @@
 <div class="container">
-  <div class="panel panel-default container-fluid"  >
-    <div class="login">
-      <h1>Log-in</h1>
+    <div class="centered">
+      <h1 id="demoFont">Log-in</h1>
     <form  [formGroup]="userForm">
       <!-- class="form-group p-3 mb-2 bg-primary text-white" -->
         
         <div>
-          <label class="control-label">
+          <label class="css-input">
             Email:
               <input type="text"
                class="form-control"
@@ -21,7 +20,7 @@
         </div>
     
         <div>
-            <label class="control-label">
+            <label class="css-input">
               Password:
                 <input type="password"
                  class="form-control"
@@ -39,7 +38,6 @@
             <button (click)="MoveToHomePage()" class="btn btn-primary btn-block btn-large" >Return to home page</button>
       </form>
       </div>
-  </div>
 </div>
 
 

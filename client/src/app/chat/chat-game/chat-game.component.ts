@@ -25,12 +25,14 @@ export class ChatGameComponent implements OnInit {
     this.service.listen('DenyReturn').subscribe((data)=>{this.NavigateToChatLogged()})
     
     this.route.queryParams.subscribe((params)=>{
+// <<<<<<< HEAD
       console.log(params);
       'rivalToken'
       this.accept = JSON.parse(params.accept)
       this.rivalToken= params.rivalToken
       console.log(`accept=`,this.accept);
       console.log(`rivalToken=`,this.rivalToken);
+      this.accept = JSON.parse(params.accept)
     })
   }
   GetPlayer($event:any){
@@ -38,7 +40,6 @@ export class ChatGameComponent implements OnInit {
   }
   getAccept():boolean{
     console.log(`accept that returns is ${this.accept}`);
-    
     return this.accept
   }
   NavigateToChatLogged(){
