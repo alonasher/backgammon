@@ -47,13 +47,13 @@ export class ChatLoggedComponent implements OnInit {
     console.log('got socket AcsseptInvite');
     this.Confirm=true
   }
-  Acssept(){
+  Accept(){
     console.log("acssepted game");
         this.service.emit('game acssept',this.fromId);
         this.accept=!this.accept
         this.NavigatToGamePage()
   }
-  Denay(){
+  Deny(){
     this.Confirm=false
   }
 

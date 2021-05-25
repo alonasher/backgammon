@@ -56,5 +56,8 @@ export class LogInComponent implements OnInit {
 NavigateToNextPage(){
   this.router.navigate(['/lobby'],{queryParams:{ID: this.data.id}});
 }
+MoveToHomePage(){
+  this.router.navigateByUrl('StartPage');
+}
 
 }

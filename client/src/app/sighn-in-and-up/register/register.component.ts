@@ -55,6 +55,6 @@ export class RegisterComponent implements OnInit {
   }
   
   MoveToHomePage(){
-    this.router.navigateByUrl('/Start');
+    this.router.navigateByUrl('StartPage');
   }
 }

@@ -10,7 +10,7 @@ import { WebSocketService } from 'src/app/chatv2/web-socket.service';
 export class ChatGameComponent implements OnInit {
 
   selectedUser:any
-  acccept:boolean=false
+  accept:boolean=false
   rivalToken :any;
   connectedUsersList: any[]=[];
 
@@ -18,28 +18,18 @@ export class ChatGameComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.service.listen('gameacssept').subscribe((data)=>{this.acccept=true})
-
+    this.service.listen('gameacssept').subscribe((data)=>{this.accept=true})
     this.route.queryParams.subscribe((params)=>{
-      console.log('query params', params.accept);
-      this.acccept = params.accept
-      console.log('query params' ,params.user);
-      this.rivalToken = params.rivalToken
-      //this.getSelectedUser(params.user)
+      this.accept = params.accept
     })
-
   }
-
   GetPlayer($event:any){
     this.selectedUser=$event
   }
-
-  getSelectedUser(userId:any){
-    // this.selectedUser=this.connectedUsersList.find(u=>u.id === userId)
-    // console.log(this.connectedUsersList.find(u=>u.id === userId));
+  getAccept():boolean{
+    console.log(`accept that returns is ${this.accept}`);
     
-    // console.log('selcted user after socket', this.selectedUser);
-    
+    return this.accept
   }
 
 }

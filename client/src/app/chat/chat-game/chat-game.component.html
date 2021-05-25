@@ -1,8 +1,8 @@
 <div class="splitLeft split left">
-  <div *ngIf="!acccept">
+  <div *ngIf="!getAccept()">
     <app-waiting-room></app-waiting-room>
   </div>
-  <div *ngIf="acccept">
+  <div *ngIf="getAccept()">
     <app-game [to] = "rivalToken"></app-game>
   </div>
   </div>
