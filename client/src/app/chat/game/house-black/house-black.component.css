@@ -1,9 +1,9 @@
 .house{
     display: flex;
     flex-direction: column;
-    width:80px;
+    width:40px;
     /* max-width:80px; */
-  height:300px;
+  height:100px;
   border-style: solid;
   background-color: black;
   color: white;
@@ -18,8 +18,8 @@ background-color: black;
 color: white;
 } */
 img{
-    width: 60%;
-    height: 60%;
+    max-width:60%;
+    max-height: 60%;
 }
 .black{
     background-color: black;
@@ -31,11 +31,4 @@ img{
     border:5px;
   border-style: solid;
   border-color:green
-}
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 100px solid white;
 }
