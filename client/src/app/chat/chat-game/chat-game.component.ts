@@ -14,13 +14,23 @@ export class ChatGameComponent implements OnInit {
   rivalToken :any;
   connectedUsersList: any[]=[];
 
-  constructor(private router: Router,private service:WebSocketService,private route: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute,private router: Router,private service:WebSocketService,private route: ActivatedRoute) {
+    this.rivalToken = this.route.snapshot.paramMap.get('rivalToken')
+    console.log(`rivalToken=${this.rivalToken}`);
+    
    }
 
   ngOnInit(): void {
     this.service.listen('gameacssept').subscribe((data)=>{this.accept=true})
+    this.service.listen('DenyReturn').subscribe((data)=>{this.NavigateToChatLogged()})
+    
     this.route.queryParams.subscribe((params)=>{
-      this.accept = params.accept
+      console.log(params);
+      'rivalToken'
+      this.accept = JSON.parse(params.accept)
+      this.rivalToken= params.rivalToken
+      console.log(`accept=`,this.accept);
+      console.log(`rivalToken=`,this.rivalToken);
     })
   }
   GetPlayer($event:any){
@@ -30,6 +40,9 @@ export class ChatGameComponent implements OnInit {
     console.log(`accept that returns is ${this.accept}`);
     
     return this.accept
+  }
+  NavigateToChatLogged(){
+    this.router.navigateByUrl('lobby');
   }
 
 }

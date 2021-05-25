@@ -105,8 +105,25 @@ io.on('connection', (socket => {
   })
 
   socket.on('get user',(id)=>{
-
   })
+  socket.on('Deny',(data)=>{
+    io
+    .to(data)
+    .emit('DenyReturn',data)
+  })
+  // 
+  socket.on('chat To Token',(data)=>{
+    console.log('chat To Token');
+    console.log(socket.id);
+    io.to(data.To).emit('chat', data);
+    // io.to(socket.id).emit('chat', data);
+})
+socket.on('chat To Token MySelf',(data)=>{
+  console.log('chat To Token');
+  console.log(socket.id);
+  // io.to(data.To).emit('chat', data);
+  io.to(socket.id).emit('chat', data);
+})
 }))
 
 function removeItem(arr, value) {

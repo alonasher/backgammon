@@ -15,6 +15,7 @@ import { Game2FixProblemsComponent } from './game2-fix-problems/game2-fix-proble
 import { LoseComponent } from './game/lose/lose.component';
 import { WinComponent } from './game/win/win.component';
 import { WaitingRoomComponent } from './chat-game/waiting-room/waiting-room.component';
+import { PrivateMessegeComponent } from './private-messege/private-messege.component';
 // import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
@@ -34,7 +35,8 @@ import { WaitingRoomComponent } from './chat-game/waiting-room/waiting-room.comp
     RoolDiceComponent,
     LoseComponent,
     WinComponent,
-    WaitingRoomComponent
+    WaitingRoomComponent,
+    PrivateMessegeComponent
   ],
   imports: [
     CommonModule,

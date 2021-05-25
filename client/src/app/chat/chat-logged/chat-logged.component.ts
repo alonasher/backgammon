@@ -54,6 +54,7 @@ export class ChatLoggedComponent implements OnInit {
         this.NavigatToGamePage()
   }
   Deny(){
+    this.service.emit("Deny",this.fromId);
     this.Confirm=false
   }
 

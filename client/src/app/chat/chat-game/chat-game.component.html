@@ -1,15 +1,15 @@
 <div class="splitLeft split left">
-  <div *ngIf="!getAccept()">
+  <div *ngIf="!accept">
     <app-waiting-room></app-waiting-room>
   </div>
-  <div *ngIf="getAccept()">
+  <div *ngIf="accept">
     <app-game [to] = "rivalToken"></app-game>
   </div>
   </div>
   
   <div class="splitRight split right">
     <div class="containerChat">
-      <app-chat2 (UserToPlayWith)="GetPlayer($event)" [to] = "rivalToken"></app-chat2>
+      <app-private-messege (UserToPlayWith)="GetPlayer($event)" [toToken]="rivalToken"></app-private-messege>
       <!-- [to] = "selectedUser" -->
     </div>
   </div>
