@@ -234,9 +234,9 @@
     background-color: whitesmoke;
     display: grid;
     grid-template-columns: 1fr;
-    height: 250px;
+    height: 100%;
     overflow: hidden;
-    width: 400px;
+    width: 100%;
   }
   .dice {
     align-items: center;

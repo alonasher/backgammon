@@ -1,4 +1,4 @@
-<span class="house" [ngClass]="{'black':isBlack,'red':!isBlack,'couldLand':checkIfCouldLand()}">
+<span class="house " [ngClass]="{'black':isBlack,'red':!isBlack,'couldLand':checkIfCouldLand()}">
     <div *ngIf="Checklength()">
         <div *ngFor="let chip of home.ChipsInHouse; let i = index">
             <div *ngIf="ColorWhite()">

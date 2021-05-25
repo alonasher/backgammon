@@ -1,7 +1,7 @@
 .container{
   height: 100%;
   position: relative;
-  border: 1px solid black; 
+  /* border: 1px solid black;  */
 }
 .centered {
   display: flex;
@@ -120,3 +120,12 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
     background-image:url('../../../assets/Backgammon_Classic_Teaser.jpg');
     background-position:50% 50%;
   } */
+  .image{
+    background-image:url('../../../assets/תמונה1.png');
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

@@ -1,7 +1,7 @@
 .container{
   height: 100%;
   position: relative;
-  border: 1px solid black; 
+  /* border: 1px solid black;  */
 }
 .centered {
   display: flex;
@@ -145,3 +145,12 @@ background: radial-gradient(circle, rgba(238,170,234,1) 4%, rgba(50,97,223,1) 24
 background: linear-gradient(90deg, rgba(83,51,68,1) 12%, rgba(65,58,84,1) 40%, rgba(35,60,97,1) 75%); */
 /* }
  */ 
+ .image{
+  background-image:url('../../../assets/תמונה1.png');
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

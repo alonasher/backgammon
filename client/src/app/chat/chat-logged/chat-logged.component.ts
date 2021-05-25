@@ -44,7 +44,7 @@ export class ChatLoggedComponent implements OnInit {
     this.fromId=data.from
     this.selectedUser=this.connectedUsersList.find(u=>u.id===this.fromId)
     this.AcsseptName=data.username
-    console.log('got socket AcsseptInvite');
+    console.log(`${this.AcsseptName} invited you to play`);
     this.Confirm=true
   }
   Accept(){

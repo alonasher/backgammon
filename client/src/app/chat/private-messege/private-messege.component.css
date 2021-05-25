@@ -79,3 +79,12 @@ button:hover{
     border-radius: 0 0 2px 2px;
     cursor: pointer;
 }
+.image{
+    background-image:url('../../../assets/WhatsUpOriginal.png');
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

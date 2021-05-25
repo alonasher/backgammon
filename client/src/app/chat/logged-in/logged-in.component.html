@@ -2,7 +2,8 @@
     <ul class="list-group">
         <li class="list-group-item" >
             <div class="list-item-fixed">
-                <p><strong><i class="fas fa-user"></i> {{user.username}}</strong></p>
+                <p><strong><i class="fas fa-user badge"></i> {{user.username}}</strong></p>
+                <!-- circle -->
                 <div class="btn btn-success" (click)="onInviteClick(user)" *ngIf="user.id != userId">Invite me!</div>
                 <div class="btn btn-info" (click)="onPrivateMessageClick(user)" *ngIf="user.id != userId">Send message</div>
                 <div class="btn btn-info" *ngIf="userAccepted">Play!</div>

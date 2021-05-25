@@ -1,179 +1,35 @@
-/* .container{
-    width: 100%;
-    height: 100%;
-} */
-/* .Board{
-  height:100%;
-  width: 100%;
-}
-  .box{
-    width: 80%;
-    height:80%;       
-    background: url("../../../assets/board.jpg") no-repeat;
-    background-size: cover;
-  object-fit: contain;
-  margin: 7%;
-  object-fit: cover;
-}  */
-/* .triangle-bottom-black {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 300px 40px 0 40px;
-  border-color: black transparent transparent transparent;
-  border-color:black  transparent;
-  position: relative;
-} */
-/* .triangle-bottom-red{
-  display: inline-block;
-  width: 200px;
-  height:200px;
-  border-style: solid;
-  border-width: 300px 40px 0 40px;
-  background-color: red;
-  color: blue;
-  border-color: red transparent transparent transparent;
-  position: relative;
 
-} */
-
-
-/* .triangle-top-red {
-  display: inline-block;
-  position: absolute; bottom: 0px; 
-  width: 100px;
-  height: 300px;
-  border-style: solid;
-  border-width: 0 40px 300px 40px;
-  border-color: transparent transparent red transparent;
-  position: relative;
-} */
-/* .triangle-top-black {
-  
-  display: inline-block;
-  position: absolute; bottom: 0px; 
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 40px 300px 40px;
-  border-color: transparent transparent black transparent;
-  position: relative;
-} */
-/* .Top{
-  margin-bottom: 5%;
-
-  width: 100%;
-  margin-top: 3%;
-  margin-left: 15%;
-} */
-/* .Bottom{
-  margin-top: 5%;
-  height: 45%;
-  margin-left: 15%;
-  margin-bottom: 5%;
-} */
-/* .center{
-  margin-left: 25%;
-  margin-bottom: 1%;
-  margin-top: 1%;
-  background-color: rgb(199, 33, 33);
-  width: 50%;
-  height: 250px;
-} */
-/* .home{
-  background-color: black;
-  width: 80px;
-  height: 300px;
-  display: inline-block;
-} */
-/* .splitLeft{
-  left: 0;
-  height: 100%;
-  width: 80%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-} */
-/* .splitRight{
-  height: 100%;
-  width: 20%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-.left {
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: whitesmoke
-} */
-
-/* Control the right side */
-/* .right {
-  right: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rebeccapurple;
-}
-.Land div{
-  border:5px;
-  border-style: solid;
-  border-color:green
-}
-.triangle-top-Land {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 50px 320px 50px;
-  border-color: transparent transparent #6980fe;
-}
-.triangle-bottom-Land{
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 320px 50px 0 50px;
-  border-color: #6980fe transparent transparent transparent;
-} */
-/* .homes{
-  width: 7%;
-  height: 100%;
-} */
 .Board{
   height:100%;
   width: 100%;
 }
 .Top{
-  /* margin-bottom: 5%; */
   display: flex;
-  /* height: 20%; */
-  /* width: 100%; */
-  margin-top: 3%;
-  margin-left: 15%;
-  /* position: relative; */
+  /* margin-top: 3%; */
+  height: 40%;
+  width: 100%;
+  top: 0px;
+  position: relative;
 } 
 .Bottom{
-  /* margin-bottom: 5%; */
   display: flex;
-  height: 20%;
+  height: 40%;
   width: 100%;
-  /* margin-top: 3%; */
-  margin-left: 15%;
+  bottom: 0px;
+  /* margin-left: 15%; */
   position: relative;
   
 }
 .center{
-  margin-left: 25%;
+  /* margin-left: 25%; */
   margin-bottom: 1%;
   margin-top: 1%;
   background-color: rgb(199, 33, 33);
   width: 50%;
-  height: 250px;
+  /* height: 10%; */
+}
+.right{
+  background-color: grey;
+  padding: 30px;
 }
   

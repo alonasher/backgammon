@@ -22,11 +22,11 @@
     <div style="width: 42%; float:right" class="right">
         <div>turn of: {{TurnsColor}} </div>
         <div> your color: {{yourColor}}</div>
-        <div (click)="MoveSolder(AllHouses[26])" style="width: 50%; float:left" class="left">
+        <div (click)="MoveSolder(AllHouses[26])" style="width: 50%; float:left" class="leftDiv">
             <!-- White Kill [26] -->
             <app-house-black [isBlack]="true"  [home]="AllHouses[26]"></app-house-black>
         </div>
-        <div (click)="MoveSolder(AllHouses[27])"  style="width: 50%; float:right" class="right">
+        <div (click)="MoveSolder(AllHouses[27])"  style="width: 50%; float:right" class="rightDiv">
             <!-- black Kill [27] -->
             <app-house-black [isBlack]="false"  [home]="AllHouses[27]"></app-house-black>
         </div>

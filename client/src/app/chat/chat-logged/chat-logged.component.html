@@ -1,19 +1,21 @@
-<!-- <div>vbf</div> -->
-<div class="messege" *ngIf="Confirm">
-  <div>
-  {{AcsseptName}} invited you to a game! Whould you like to play?
-</div>
 <div>
-  <button (click)="Accept()">Accept</button>
-  <button (click)="Deny()">Deny </button>
+  <div class="split left splitLeft">
+    <app-private-messege [to] = "selectedUser"></app-private-messege>
+    </div>
+    <div class="split right splitRight">
+      <div class="messege splitTop" *ngIf="Confirm">
+        <div>
+        you have bean invited you to a game! Whould you like to play?
+          <!-- {{AcsseptName}} invited you to a game! Whould you like to play? -->
+      </div>
+      <div>
+        <button (click)="Accept()">Accept</button>
+        <button (click)="Deny()">Deny </button>
+      </div>
+      </div>
+      <app-logged-in (getPrivateRoom)="getPrivateRoom($event)" (inviteToGame)="inviteToGame($event)" [userAccepted]="accept" [connectedUsers]="connectedUsersList"></app-logged-in>
+    </div>
 </div>
-</div>
-<div class="split left">
-  <app-private-messege [to] = "selectedUser"></app-private-messege>
-  </div>
-  
-  <div class="split right">
-    <app-logged-in (getPrivateRoom)="getPrivateRoom($event)" (inviteToGame)="inviteToGame($event)" [userAccepted]="accept" [connectedUsers]="connectedUsersList"></app-logged-in>
-  </div>
+
 
 
