@@ -32,5 +32,8 @@ export class HouseBlackComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  getLenghtUnderFive():Boolean{
+    return this.home.ChipsInHouse.length<5
+  }
 
 }

@@ -25,11 +25,16 @@
   margin-bottom: 1%;
   margin-top: 1%;
   background-color: rgb(199, 33, 33);
-  width: 50%;
+  width: 30%;
   /* height: 10%; */
 }
 .right{
-  background-color: grey;
-  padding: 30px;
+  background-color: #c072ce66;
+    padding: 30px;
+    border-radius: 5px;
+}
+.child {
+  margin: 0 auto;
+  text-align: center;
 }
   

@@ -1,3 +1,5 @@
+
+import { flatten } from '@angular/compiler';
 import { Component, Directive, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Dice } from 'src/app/Model/Dice';
@@ -204,7 +206,6 @@ export class GameComponent implements OnInit {
         if(this.dice.length===2||this.dice.length===4||this.dice.length===0)this.playerTuchedTheDice()
       }
       this.turnAllHomesToBeCantLand();
-      // this.CheckIfYouWin(chip.Color)
     }
   }
   getDiceMoves(endHouse:House):number{
@@ -237,7 +238,10 @@ export class GameComponent implements OnInit {
       console.log(`color is white`);
       for (let index = 25; index > 18; index--) {
         console.log(`index is ${index}`);
-        count=count+this.AllHouses[index].ChipsInHouse.length
+        if(this.AllHouses[index].ChipsInHouse[0]===undefined)continue
+        if(this.AllHouses[index].ChipsInHouse[0].Color===chip.Color){
+          count=count+this.AllHouses[index].ChipsInHouse.length
+        }
         if(count===15){
           console.log(`all chips are in house`);
           
@@ -250,10 +254,7 @@ export class GameComponent implements OnInit {
             console.log(`check if there is chips in bigger houses`);
             
             for (let index = 18; index < begningHouse.Id; index++) {
-              if(this.AllHouses[index].ChipsInHouse.length!==0){
-                console.log(`if there is return that there is`);
-                return NaN
-              }
+              if(this.AllHouses[index].ChipsInHouse.length!==0&&this.AllHouses[index].ChipsInHouse[0].Color===chip.Color)return NaN
             }
             console.log(`take out chips`);
             return 25
@@ -265,7 +266,10 @@ export class GameComponent implements OnInit {
       console.log(`color is black`);
       for (let index = 0; index < 7; index++) {
         console.log(`index is ${index}`);
-        count=count+this.AllHouses[index].ChipsInHouse.length
+        if(this.AllHouses[index].ChipsInHouse[0]===undefined)continue
+        if(this.AllHouses[index].ChipsInHouse[0].Color===chip.Color){
+          count=count+this.AllHouses[index].ChipsInHouse.length
+        }
         console.log(`count is ${count}`);
         if(count===15){
           console.log("amount is 15");
@@ -273,7 +277,7 @@ export class GameComponent implements OnInit {
           else{
             for (let index = 6; index > begningHouse.Id; index--) {
               console.log(`index of red house is ${index}`);
-              if(this.AllHouses[index].ChipsInHouse.length!==0)return NaN
+              if(this.AllHouses[index].ChipsInHouse.length!==0&&this.AllHouses[index].ChipsInHouse[0].Color===chip.Color)return NaN
             }
             return 0
           }
@@ -292,7 +296,6 @@ export class GameComponent implements OnInit {
     
     
     if(houseToLand<1||houseToLand>24)houseToLand=this.landWhenUserIsInHouse(houseToLand,chip,house)
-    console.log(`263 houseToLand==${houseToLand}`);
     
     if(houseToLand!==NaN){
       let couldLand=this.CheckIfChipCouldLandOnHouse(chip,houseToLand)
@@ -352,8 +355,6 @@ export class GameComponent implements OnInit {
     else return true
   }
   /////////////
-
-
   AllowButton():boolean{
     // return this.dice.length===0
     console.log(`length of dice is ${this.dice.length}`);
@@ -528,16 +529,13 @@ export class GameComponent implements OnInit {
     this.playerTuchedTheDice()
   }
   CheckIfYouWin(Color:string):boolean{
-    if(Color="Black"){
-      
+    if(Color==="Black"){
       return this.AllHouses[0].ChipsInHouse.length===15
     }
     else{
       return this.AllHouses[25].ChipsInHouse.length===15
     }
   }
-  
-  /////////////
   CheckIfNoDeadUser(chip:Chips){
     if(chip.Color==="White"){
       return this.AllHouses[WhitKillHouse].ChipsInHouse.length===0
@@ -677,6 +675,9 @@ export class GameComponent implements OnInit {
 
   navigateToLosePage(){
   this.router.navigateByUrl('/lose');
+  }
+  youlose(){
+    this.navigateToLosePage()
   }
   
 }

@@ -23,6 +23,7 @@ export class ChatGameComponent implements OnInit {
   ngOnInit(): void {
     this.service.listen('gameacssept').subscribe((data)=>{this.accept=true})
     this.service.listen('DenyReturn').subscribe((data)=>{this.NavigateToChatLogged()})
+    // this.service.listen('gameinvite2').subscribe((data)=>{this.service.emit("Deny",data.To.token)})
     
     this.route.queryParams.subscribe((params)=>{
 // <<<<<<< HEAD

@@ -91,6 +91,11 @@ io.on('connection', (socket => {
     .to(data.to)
     .emit('Getturn',data)
   })
+  socket.on('you lose',(data)=>{
+    io
+    .to(data.to)
+    .emit('youlose',data)
+  })
 
   socket.on('game acssept',(data)=>{
     data["from"] = socket.id
