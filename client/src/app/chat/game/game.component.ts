@@ -155,9 +155,6 @@ export class GameComponent implements OnInit {
         }
       }
   }
-  // CheckIfCouldLandWhenDead(house:House){
-  //   const chip=house.ChipsInHouse[house.ChipsInHouse.length-1]
-  // }
   checkIfPlayersColorIsDead(chip:Chips):boolean{
     if(chip.Color==="White"){
       return this.AllHouses[WhitKillHouse].ChipsInHouse.length===0
@@ -203,7 +200,8 @@ export class GameComponent implements OnInit {
             }
           }
         }
-        if(this.dice.length===2||this.dice.length===4||this.dice.length===0)this.playerTuchedTheDice()
+        // if(this.dice.length===2||this.dice.length===4||this.dice.length===0)this.playerTuchedTheDice()
+        this.playerTuchedTheDice()
       }
       this.turnAllHomesToBeCantLand();
     }
@@ -348,7 +346,6 @@ export class GameComponent implements OnInit {
       this.navigateToWinPage()
     }
   }
-
   checkIfKill(EndHouse:House,chip:Chips){
     if(chip.Color===EndHouse.ChipsInHouse[0].Color)
     return false
@@ -368,6 +365,7 @@ export class GameComponent implements OnInit {
       if(this.AllHouses[WhitKillHouse].ChipsInHouse.length!==0){
         if(!this.CheckIfChipCouldLandOnHouse(chip,this.dice[0].DiceDots)){
           this.dice=[]
+          this.playerTuchedTheDice()
           return this.AllowButton()
         }
       }
@@ -377,6 +375,7 @@ export class GameComponent implements OnInit {
       if(this.AllHouses[BlackKillHouse].ChipsInHouse.length!==0){
         if(!this.CheckIfChipCouldLandOnHouse(chip,25-this.dice[0].DiceDots)){
           this.dice=[]
+          this.playerTuchedTheDice()
           return this.AllowButton()
         }
       }
@@ -389,6 +388,7 @@ export class GameComponent implements OnInit {
       console.log(`foundMoves 1 dice- ${foundMoves}`);
     }
     this.dice=[]
+    this.playerTuchedTheDice()
     return this.AllowButton()
   }
   if(this.dice.length===2){
@@ -396,6 +396,7 @@ export class GameComponent implements OnInit {
       if(this.AllHouses[WhitKillHouse].ChipsInHouse.length!==0){
         if(!this.CheckIfChipCouldLandOnHouse(chip,this.dice[0].DiceDots)&&!this.CheckIfChipCouldLandOnHouse(chip,this.dice[1].DiceDots)){
           this.dice=[]
+          this.playerTuchedTheDice()
           return this.AllowButton()
         }
       }
@@ -405,6 +406,7 @@ export class GameComponent implements OnInit {
       if(this.AllHouses[BlackKillHouse].ChipsInHouse.length!==0){
         if(!this.CheckIfChipCouldLandOnHouse(chip,25-this.dice[0].DiceDots)&&!this.CheckIfChipCouldLandOnHouse(chip,25-this.dice[1].DiceDots)){
           this.dice=[]
+          this.playerTuchedTheDice()
           return this.AllowButton()
         }
       }
@@ -418,6 +420,7 @@ export class GameComponent implements OnInit {
       if(foundMoves)return false
     }
     this.dice=[]
+    this.playerTuchedTheDice()
     return this.AllowButton()
   }
     return false
@@ -561,8 +564,6 @@ export class GameComponent implements OnInit {
   }
   ChangeTurns(){
     console.log('change turn');
-    
-    
     let randomNum=Math.floor(Math.random() * 10); 
     if(this.TurnsColor===""){
       this.getColor()
@@ -575,8 +576,6 @@ export class GameComponent implements OnInit {
     else this.TurnsColor="White"
     this.MoveTurnToTheNext()
   }
-
-
   //////for socket/////
   // SendAfterMove
   MoveToOtherPersonInformation(StartHous:House,EndHouse:House){

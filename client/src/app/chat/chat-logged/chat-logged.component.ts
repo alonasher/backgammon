@@ -17,7 +17,8 @@ export class ChatLoggedComponent implements OnInit{
   fromId:any;
   userName!: string;
   constructor(private service:WebSocketService,private router: Router) { 
-      this.service.emitNoData('get again');    
+      // this.service.emitNoData('get again');    
+      this.service.emit('get again',"");    
   }
 
 
