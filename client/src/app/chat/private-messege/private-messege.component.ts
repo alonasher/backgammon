@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { WebSocketService } from 'src/app/chatv2/web-socket.service';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
   selector: 'app-private-messege',
@@ -84,13 +84,4 @@ export class PrivateMessegeComponent implements OnInit {
   checkIfNeedPrivate():boolean{
     return this.to!==undefined
   }
-  
-  // }
-  // emitNumber(){
-  //   this.socket.emit("emitNumber", this.someNumber)
-  // }
-
-  // emitRandom(){
-  //   this.socket.emit("emitRandom")
-  // }
 }

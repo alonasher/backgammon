@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { WebSocketService } from 'src/app/chatv2/web-socket.service';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 import { UserModel } from 'src/app/Model/UserModel';
 import { AuthGuard } from 'src/app/services/guards/auth-guard';
 import { ServerServiceService } from 'src/app/services/server-service.service';

@@ -20,8 +20,6 @@ export class RoolDiceComponent implements OnInit {
   clickbtn(){
     rollDice()
     this.numbers=returnNumbers()
-    //socket on other user
-    //emit GetNumbersFromClient(this.numbers)
     this.returnDiceNumbers();
   }
   returnDiceNumbers(){

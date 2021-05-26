@@ -10,13 +10,8 @@ export class HouseBlackComponent implements OnInit {
 
   @Input() home!:House;
   @Input() isBlack!:boolean;
-  constructor() { 
-    
-    
-  }
-  checkHomeTest(){
-    console.log(this.home);
-  }
+  constructor() {}
+
   Checklength():boolean{
     return this.home.ChipsInHouse.length!==0
   }
@@ -26,12 +21,14 @@ export class HouseBlackComponent implements OnInit {
   ColorWhite():boolean{
     return this.checkColor()==="White"
   }
+  
   checkIfCouldLand():boolean{
     return this.home.CouldLandOn
   }
 
   ngOnInit(): void {
   }
+
   getLenghtUnderFive():Boolean{
     return this.home.ChipsInHouse.length<5
   }
