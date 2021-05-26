@@ -27,6 +27,9 @@ const io = socket(server, {
 let connectedUsersList=[];
 io.on('connection', (socket => {
   
+  socket.on('get again',()=>{
+    io.sockets.emit('connected',connectedUsersList)
+  })
   socket.on('new connection',(data)=>{
       connectedUsersList.push({
         'id' : data.id,
@@ -34,8 +37,10 @@ io.on('connection', (socket => {
         'token' : socket.id
       })
       io.sockets.emit('connected',connectedUsersList)
+      io.to(socket.id).emit('get name',data.name)
   })
 
+  
   socket.on('accept game',(data)=>{
     io.to(data.token).emit('accept game',data);
   })

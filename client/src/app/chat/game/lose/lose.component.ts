@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthGuard } from 'src/app/services/guards/auth-guard';
 import { IGameService } from '../igame.service';
 
 @Component({
@@ -9,14 +10,12 @@ import { IGameService } from '../igame.service';
 })
 export class LoseComponent implements OnInit {
 
-  constructor(private router: Router,private service:IGameService) { }
+  constructor(private router:Router,private authService:AuthGuard) { }
   NavigateBackHome(){
-    this.service.emit('disconnect',"")
-    this.router.navigateByUrl('StartPage');
+    this.authService.givePermission();
+    this.router.navigateByUrl('/lobby');
   }
 
-  ngOnInit(): void {
-    // this.service.listen('gameinvite2').subscribe((data)=>{this.service.emit("Deny",data.To.token)})
-  }
+  ngOnInit(): void { }
 
 }

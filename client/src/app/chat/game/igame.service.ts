@@ -20,4 +20,8 @@ export class IGameService {
   emit(eventname : string, data: any){
       this.socket.emit(eventname,data);
   }
+
+  emitNoData(eventname : string){
+    this.socket.emit(eventname);
+}
 }

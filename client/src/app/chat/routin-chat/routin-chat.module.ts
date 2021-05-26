@@ -9,7 +9,7 @@ import { AuthGuard } from 'src/app/services/guards/auth-guard';
 
 const routes: Routes = [
 
-  { path: 'lobby', component: ChatLoggedComponent, canActivate:[AuthGuard]},
+  { path: 'lobby', component: ChatLoggedComponent, canActivate:[]},
   { path: 'game', component: ChatGameComponent , canActivate:[AuthGuard]},
   { path: 'lose', component: LoseComponent , canActivate:[AuthGuard]},
   { path: 'win', component: WinComponent , canActivate:[AuthGuard]},

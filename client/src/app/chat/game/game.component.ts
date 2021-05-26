@@ -444,11 +444,9 @@ export class GameComponent implements OnInit {
       return this.AllHouses[numberOfHouse].ChipsInHouse[0].Color===chip.Color
     }
     else{
-      //כרגע
       return this.CheckIfUserIsInHouseAndCouldStillMove(numberOfHouse,chip,begningHouse)
       // return true
     }
-    // return true
     
   }
   CheckIfUserIsInHouseAndCouldStillMove(numOfHouse:number,chip:Chips,begningHouse:House):boolean{

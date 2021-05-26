@@ -1,14 +1,11 @@
-<div class="image">
-
-</div>
 <div class="container">
-  <div class="panel panel-default container-fluid Register "  >
+  <div class="centered">
     <form class="form-group " [formGroup]="userForm">
       <!-- p-3 mb-2 bg-primary text-white -->
-      <h1>Register</h1>
+      <h1 id="demoFont">Register</h1>
         
         <div>
-          <label class="control-label">
+          <label class="css-input">
             Email:
               <input type="text"
                class="form-control"
@@ -23,7 +20,7 @@
         </div>
 
         <div>
-          <label class="control-label">
+          <label class="css-input">
             Name
               <input type="text"
                class="form-control"
@@ -33,7 +30,7 @@
         </div>
     
         <div>
-            <label class="control-label">
+            <label class="css-input">
               Password:
                 <input type="password"
                  class="form-control"
@@ -48,7 +45,7 @@
           </div>
     
           <div>
-            <label class="control-label">
+            <label class="css-input">
                 Confirm password:
                 <input type="password"
                  class="form-control"
@@ -61,9 +58,12 @@
                 </div>
             </div>
           </div>
-            <button (click)="Register()" class="btn btn-primary btn-block btn-large" [disabled]="!AllowBtn()">Register</button>
-            <button (click)="MoveToHomePage()" class="btn btn-primary btn-block btn-large" >Return to home page</button>
+          <div class="btns">
+            <button class="myButton" id="home" (click)="MoveToHomePage()" ><i class="fas fa-arrow-left"></i> <i class="fas fa-home"></i></button>
+            <button class="myButton" id="register" (click)="Register()" [disabled]="!AllowBtn()">Register</button>
+          </div>
       </form>
+
   </div>
 </div>
 

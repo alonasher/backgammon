@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebSocketService } from 'src/app/chatv2/web-socket.service';
 
@@ -7,7 +7,7 @@ import { WebSocketService } from 'src/app/chatv2/web-socket.service';
   templateUrl: './chat-logged.component.html',
   styleUrls: ['./chat-logged.component.css']
 })
-export class ChatLoggedComponent implements OnInit {
+export class ChatLoggedComponent implements OnInit{
 
   selectedUser:any;
   connectedUsersList :any[]=[];
@@ -15,12 +15,18 @@ export class ChatLoggedComponent implements OnInit {
   AcsseptName:string=""
   Confirm:boolean=false
   fromId:any;
-  constructor(private service:WebSocketService,private router: Router) { }
+  userName!: string;
+  constructor(private service:WebSocketService,private router: Router) { 
+      this.service.emitNoData('get again');    
+  }
+
 
   ngOnInit(): void {
-    this.service.listen('connected').subscribe((data)=>{this.connectedUsersList=data;})
+    //this.service.listen('connected').subscribe((data)=>{this.connectedUsersList=data;})
     // this.service.listen('gameInvite').subscribe((data)=>{this.AcsseptInvite(data)})
-    this.service.listen('gameinvite2').subscribe((data)=>{this.AcsseptInvite(data)})
+    this.service.listen('gameinvite2').subscribe((data)=>{this.AcsseptInvite(data)}) 
+    this.service.listen('connected').subscribe((data)=>{this.connectedUsersList=data;})
+    this.service.listen('get name').subscribe((data)=>{this.userName =data;})
   }
 
   getPrivateRoom(user:any){
