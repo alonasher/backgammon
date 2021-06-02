@@ -19,8 +19,5 @@
     "mongoose": "^5.12.8",
     "socket.io": "^4.0.2"
   },
-  "config" :{
-    "DISABLE_HUGO_BUILD" :true
-  },
   "devDependencies": {}
 }
