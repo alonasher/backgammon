@@ -6,13 +6,9 @@
                 <app-house-black [isBlack]="true"  [home]="house"></app-house-black>
             </div>
             <div class="homes" (click)="MoveSolder(house)" *ngIf="checkIfElementIsOdd(i)">
-                <!-- <div id="{{house.Id}}" > -->
-                    <!-- <app-house-red class="red" [home]="AllHouses[i]"></app-house-red> -->
                     <app-house-black [isBlack]="false"  [home]="house"></app-house-black>
-                <!-- </div> -->
             </div>
         </div>
-        <!-- <div class="home"></div> -->
     </div>
 
 <div class="center">
@@ -24,11 +20,9 @@
             <div>turn of: {{TurnsColor}} </div>
             <div> your color: {{yourColor}}</div>
             <div (click)="MoveSolder(AllHouses[26])" style="width: 50%; float:left" class="leftDiv">
-                <!-- White Kill [26] -->
                 <app-house-black [isBlack]="true"  [home]="AllHouses[26]"></app-house-black>
             </div>
             <div (click)="MoveSolder(AllHouses[27])"  style="width: 50%; float:right" class="rightDiv">
-                <!-- black Kill [27] -->
                 <app-house-black [isBlack]="false"  [home]="AllHouses[27]"></app-house-black>
             </div>
         </div>

@@ -13,7 +13,7 @@ import { ServerServiceService } from './services/server-service.service';
 import { HttpClientModule } from '@angular/common/http';
 // import { Chatv2Component } from './chatv2/chatv2.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'https://expressnode1.azurewebsites.net', options: {} };
 
 @NgModule({
   declarations: [
