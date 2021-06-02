@@ -9,8 +9,8 @@ import { UserModel } from 'src/app/Model/UserModel';
 })
 export class ServerServiceService {
 
-  port =3000;
-  userApi:string = `https://nodeserver12.azurewebsites.net/user`;
+  //port =3000;
+  userApi:string = `https://expressnode1.azurewebsites.net/user`;
   private headers=new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http: HttpClient) { }
 
